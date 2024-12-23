@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#eeeeee"
+    >
+
+    <TextView
+        android:id="@+id/weekday"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:clickable="true"
+        android:focusable="false"
+        android:text="ABC"
+        android:gravity="center"
+        android:textSize="15dp"
+        android:background="@drawable/textview_border"
+
+        />
+
+    <TextView
+        android:id="@+id/day"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/weekday"
+        android:text="99"
+        android:textSize="25dp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:background="@drawable/textview_border_withouttop"
+        />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:orientation="vertical"
+        android:layout_toRightOf="@id/weekday"
+        android:layout_alignTop="@+id/weekday"
+        android:layout_alignBottom="@id/day"
+        android:background="@drawable/textview_border"
+
+        >
+
+
+    <TextView
+        android:id="@+id/FirstTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:textSize="20dp"
+        android:text="처음수정한 날짜"
+       />
+
+        <TextView
+            android:id="@+id/SecondTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:textSize="20dp"
+            android:text="마지막으로 수정한 날짜"
+            />
+
+    </LinearLayout>
+
+
+    <EditText
+        android:id="@+id/diarytext"
+        android:paddingVertical="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="오늘의 일기"
+        android:textSize="25dp"
+        android:layout_below="@+id/day"
+        android:background="@drawable/transparent_squre"
+
+        />
+    <Button
+        android:id="@+id/delbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_below="@id/diarytext"
+        android:layout_alignParentRight="true"
+        android:background="@android:color/transparent"
+        android:text="삭제"
+        android:textSize="20dp"
+        android:textColor="@color/black"
+    />
+
+    <Button
+        android:id="@+id/editbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_below="@id/diarytext"
+        android:layout_toLeftOf="@id/delbutton"
+        android:background="@android:color/transparent"
+        android:text="변경"
+        android:textSize="20dp"
+        android:textColor="@color/black"
+    />
+
+</RelativeLayout>

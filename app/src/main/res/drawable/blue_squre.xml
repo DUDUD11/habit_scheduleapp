@@ -1,0 +1,4 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="#8066FF"/>  <!-- 파란색 -->
+    <corners android:radius="10dp"/>  <!-- 모서리 둥글지 않음 -->
+</shape>

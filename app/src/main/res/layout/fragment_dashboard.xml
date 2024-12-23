@@ -1,0 +1,121 @@
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginBottom="40dp"
+    android:id="@+id/scrollView"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="10dp"
+
+
+        >
+
+        <com.prolificinteractive.materialcalendarview.MaterialCalendarView
+            android:id="@+id/calendarView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="16dp"
+            app:mcv_arrowColor="#3F51B5"
+            app:mcv_selectionColor="#FF4081" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edit_text_border"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+
+            <TextView
+                android:id="@+id/scheduledateview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="일정"
+                android:textColor="@color/white"
+                android:textSize="20dp" />
+
+            <ListView
+                android:id="@+id/schedulelist"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edit_text_border"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="습관"
+                android:textColor="@color/white"
+                android:textSize="20dp" />
+
+            <ListView
+                android:id="@+id/habitlist"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edit_text_border"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="완료"
+                android:textColor="@color/white"
+                android:textSize="20dp" />
+
+            <ListView
+                android:id="@+id/finishlist"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+
+
+
+                />
+
+        </LinearLayout>
+
+
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="54dp"
+            android:layout_height="63dp"
+            android:layout_margin="10dp"
+
+            android:contentDescription="fab"
+            android:visibility="visible"
+            android:layout_gravity="end"
+            app:srcCompat="@android:drawable/ic_input_add" />
+
+
+    </LinearLayout>
+</ScrollView>

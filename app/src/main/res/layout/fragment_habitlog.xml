@@ -1,0 +1,264 @@
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/scrollView"
+
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="20dp"
+        android:orientation="vertical"
+        android:padding="10dp"
+
+        >
+
+        <com.prolificinteractive.materialcalendarview.MaterialCalendarView
+            android:id="@+id/calendarView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="16dp"
+            app:mcv_arrowColor="#3F51B5"
+            app:mcv_selectionColor="#FF4081" />
+
+        <!--
+
+    <GridView
+        android:id="@+id/CalendergridView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        android:layout_marginHorizontal="30dp"
+        android:columnWidth="30dp"
+        android:numColumns="7"
+        android:stretchMode="columnWidth">
+
+    </GridView>
+!-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edit_text_border"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="5dp"
+                android:text="출근 기록 통계"
+                android:textColor="@color/white"
+                android:textSize="20dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="더보기"
+                android:textColor="@color/white"
+                android:textSize="20dp" />
+
+        </LinearLayout>
+
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edit_text_border"
+            android:columnCount="2"
+            android:padding="16dp"
+            android:rowCount="2">
+
+            <RelativeLayout
+                android:layout_width="175dp"
+                android:layout_height="wrap_content"
+                android:background="#eeeeee"
+                android:padding="6dp">
+
+
+                <ImageView
+                    android:id="@+id/monthlyimage"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginRight="6dp"
+
+
+                    android:src="@drawable/checkin_monthlycheck1" />
+
+                <TextView
+                    android:id="@+id/monthlytitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/monthlyimage"
+                    android:layout_toRightOf="@+id/monthlyimage"
+                    android:text="월간 출석체크"
+                    android:textSize="18dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/monthlytext"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/monthlyimage"
+                    android:layout_marginTop="5dp"
+                    android:text="100일"
+                    android:textColor="@color/black"
+                    android:textSize="20dp" />
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="175dp"
+                android:layout_height="wrap_content"
+                android:background="#eeeeee"
+                android:padding="6dp">
+
+                <ImageView
+                    android:id="@+id/wholecheck"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginRight="6dp"
+
+
+                    android:src="@drawable/checkin_totalcheckin" />
+
+                <TextView
+                    android:id="@+id/wholechecktitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/wholecheck"
+                    android:layout_toRightOf="@+id/wholecheck"
+                    android:text="총 체크인 수"
+                    android:textSize="18dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/wholechecktext"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/wholecheck"
+                    android:layout_marginTop="5dp"
+                    android:text="100일"
+                    android:textColor="@color/black"
+                    android:textSize="20dp" />
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="175dp"
+                android:layout_height="wrap_content"
+                android:background="#eeeeee"
+                android:padding="6dp">
+
+                <ImageView
+                    android:id="@+id/monthlypercentage"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginRight="6dp"
+
+
+                    android:src="@drawable/checkin_monthly_check_in_rate" />
+
+                <TextView
+                    android:id="@+id/monthlypercentagetitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/monthlypercentage"
+                    android:layout_toRightOf="@+id/monthlypercentage"
+                    android:text="월별 체크인 비율"
+                    android:textSize="18dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/monthlypercentagetext"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/monthlypercentage"
+                    android:layout_marginTop="5dp"
+                    android:text="100일"
+                    android:textColor="@color/black"
+                    android:textSize="20dp" />
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="175dp"
+                android:layout_height="wrap_content"
+                android:background="#eeeeee"
+                android:padding="6dp">
+
+                <ImageView
+                    android:id="@+id/consecutive"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginRight="6dp"
+
+
+                    android:src="@drawable/checkin_longest_continuous_period" />
+
+                <TextView
+                    android:id="@+id/consecutivetitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/consecutive"
+                    android:layout_toRightOf="@+id/consecutive"
+                    android:text="연속 출석체크"
+                    android:textSize="18dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/consecutivetext"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/consecutive"
+                    android:layout_marginTop="5dp"
+                    android:text="100일"
+                    android:textColor="@color/black"
+                    android:textSize="20dp" />
+
+
+            </RelativeLayout>
+
+
+        </GridLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edit_text_border"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+
+            <TextView
+                android:id="@+id/monthtextview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="100월 습관 로그"
+                android:textColor="@color/white"
+                android:textSize="20dp" />
+
+            <ListView
+                android:id="@+id/loglist"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+</ScrollView>

@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_home">
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.example.ticktick2.ui.home.HomeFragment"
+        android:label="@string/title_home"
+        tools:layout="@layout/fragment_home">
+
+    <action
+        android:id="@+id/HomeFragment_to_HabitDetail"
+        app:destination="@id/navigation_habitdetail"
+        />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_dashboard"
+        android:name="com.example.ticktick2.ui.dashboard.DashboardFragment"
+        android:label="@string/title_dashboard"
+        tools:layout="@layout/fragment_dashboard">
+        <action
+            android:id="@+id/dashboardFragment_to_HabitDetail"
+            app:destination="@id/navigation_habitdetail"
+            />
+
+
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_notifications"
+        android:name="com.example.ticktick2.ui.notifications.NotificationsFragment"
+        android:label="@string/title_notifications"
+        tools:layout="@layout/fragment_notifications" />
+    <fragment
+        android:id="@+id/navigation_habits"
+        android:name="com.example.ticktick2.ui.habit.HabitFragment"
+        android:label="@string/title_habits"
+        tools:layout="@layout/fragment_habits" />
+        <action
+            android:id="@+id/HabitFragment_to_HabitAddFragment"
+            app:destination="@id/navigation_Habitadd" />
+
+        <action
+            android:id="@+id/HabitFragment_to_HabitDetail"
+            app:destination="@id/navigation_habitdetail"
+
+            />
+    <fragment
+        android:id="@+id/navigation_diary"
+        android:name="com.example.ticktick2.ui.diary.DiaryFragment"
+        android:label="diary"
+        tools:layout="@layout/fragment_diary" />
+
+    <fragment
+        android:id="@+id/navigation_Habitadd"
+        android:name="com.example.ticktick2.ui.habit.HabitAddFragment"
+        android:label="HabitAddFragment"
+        tools:layout="@layout/fragment_habitsadd">
+
+        <action
+            android:id="@+id/action_HabitAddFragment_to_HabitFragment"
+            app:destination="@id/navigation_habits"
+            />
+        <action
+            android:id="@+id/action_HabitAddFragment_to_HabitAddPageOneFragment"
+            app:destination="@id/navigation_habitaddPageone" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_Habitadd2"
+        android:name="com.example.ticktick2.ui.habit.HabitAddFragment2"
+        android:label="HabitAddFragment2"
+        tools:layout="@layout/fragment_habitsadd2">
+
+        <action
+            android:id="@+id/action_HabitAddFragment2_to_HabitFragment"
+            app:destination="@id/navigation_habits" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_Habitadd3"
+        android:name="com.example.ticktick2.ui.habit.HabitAddFragment3"
+        android:label="HabitAddFragment3"
+        tools:layout="@layout/fragment_habitsadd3" >
+        <action
+            android:id="@+id/action_HabitAddFragment3_to_HabitFragment"
+            app:destination="@id/navigation_habits" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_Habitadd4"
+        android:name="com.example.ticktick2.ui.habit.HabitAddFragment4"
+        android:label="HabitAddFragment4"
+        tools:layout="@layout/fragment_habitsadd4" >
+        <action
+            android:id="@+id/action_HabitAddFragment4_to_HabitFragment"
+            app:destination="@id/navigation_habits" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_Habitadd5"
+        android:name="com.example.ticktick2.ui.habit.HabitAddFragment5"
+        android:label="HabitAddFragment5"
+        tools:layout="@layout/fragment_habitsadd5" >
+        <action
+            android:id="@+id/action_HabitAddFragment5_to_HabitFragment"
+            app:destination="@id/navigation_habits" />
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/navigation_habitaddPageone"
+        android:name="com.example.ticktick2.ui.habit.HabitAddPageOne"
+        android:label="HabitAddPageOne"
+        tools:layout="@layout/fragment_habitsaddpageone" />
+    <action
+        android:id="@+id/action_habitaddPageone_to_habitaddPagetwo"
+        app:destination="@id/navigation_habitaddPagetwo" />
+
+    <fragment
+        android:id="@+id/navigation_habitaddPagetwo"
+        android:name="com.example.ticktick2.ui.habit.HabitAddPageTwo"
+        android:label="HabitAddPageTwo"
+        tools:layout="@layout/fragment_habitsaddpagetwo" />
+
+
+    <fragment
+        android:id="@+id/navigation_habitdetail"
+        android:name="com.example.ticktick2.ui.habit.HabitDetailFragment"
+        android:label="HabitDetail"
+        tools:layout="@layout/fragment_habitsdetail"/>
+    <action
+        android:id="@+id/action_HabitDetail_to_HabitLog"
+        app:destination="@id/navigation_habitlog" />
+
+    <action
+        android:id="@+id/action_HabitDetail_to_HabitAddtwo"
+        app:destination="@id/navigation_habitaddPagetwo"
+        />
+
+
+    <fragment
+        android:id="@+id/navigation_habitlog"
+        android:name="com.example.ticktick2.ui.habit.HabitLogFragment"
+        android:label="HabitLog"
+        tools:layout="@layout/fragment_habitlog"/>
+    <action
+        android:id="@+id/action_HabitLog_to_HabitDetail"
+        app:destination="@id/navigation_habitdetail" />
+
+
+
+
+</navigation>
+
+

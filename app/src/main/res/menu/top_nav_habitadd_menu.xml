@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_Habitadd"
+        android:title="추천"
+        android:textAppearance="@style/MenuItemTextStyle"/>
+
+    <item
+        android:id="@+id/navigation_Habitadd2"
+        android:title="자기계발"
+        android:textAppearance="@style/MenuItemTextStyle"/>
+
+    <item
+        android:id="@+id/navigation_Habitadd3"
+        android:title="건강"
+        android:textAppearance="@style/MenuItemTextStyle"/>
+    <item
+        android:id="@+id/navigation_Habitadd4"
+        android:title="운동"
+        android:textAppearance="@style/MenuItemTextStyle"/>
+    <item
+        android:id="@+id/navigation_Habitadd5"
+        android:title="마음"
+        android:textAppearance="@style/MenuItemTextStyle"/>
+
+</menu>

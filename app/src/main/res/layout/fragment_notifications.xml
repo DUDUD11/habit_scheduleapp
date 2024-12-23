@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginBottom="40dp"
+    tools:context=".ui.notifications.NotificationsFragment"
+    >
+
+    <RelativeLayout
+            android:id="@+id/leftfirstlayout"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="#eeeeee"
+            android:padding="6dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/rightfirstlayout"
+            app:layout_constraintWidth_percent="0.5"
+            app:layout_constraintHeight_percent="0.5"
+
+
+            >
+
+            <ImageView
+                android:id="@+id/firstimage"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentLeft="true"
+                android:layout_marginRight="6dp"
+                android:src="@drawable/number_1" />
+
+            <TextView
+                android:id="@+id/firsttitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/firstimage"
+                android:layout_toRightOf="@+id/firstimage"
+                android:text="중요하고 급한 일"
+                android:textSize="15dp"
+                android:textStyle="bold"
+                android:maxLines="1"
+                android:ellipsize="end"
+
+
+                />
+
+            <ListView
+                android:id="@+id/firsttext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/firstimage"
+                android:layout_marginTop="5dp"
+                android:textColor="@color/white"
+                android:textSize="20dp"
+
+                />
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rightfirstlayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#eeeeee"
+        android:padding="6dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.5"
+        app:layout_constraintStart_toEndOf="@id/leftfirstlayout"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent="0.5"
+
+        >
+
+
+        <ImageView
+            android:id="@+id/secondcheck"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginRight="6dp"
+
+
+            android:src="@drawable/number_2" />
+
+        <TextView
+            android:id="@+id/secondtitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/secondcheck"
+            android:layout_toRightOf="@+id/secondcheck"
+
+            android:text="중요하지 않지만 급한 일"
+            android:textSize="15dp"
+            android:textStyle="bold"
+            android:maxLines="1"
+            android:ellipsize="end"
+            />
+
+        <ListView
+            android:id="@+id/secondtext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/secondcheck"
+            android:layout_marginTop="5dp"
+            android:textColor="@color/white"
+            android:textSize="20dp" />
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/leftsecondlayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#eeeeee"
+        android:padding="6dp"
+        app:layout_constraintTop_toBottomOf="@id/leftfirstlayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/rightsecondlayout"
+        app:layout_constraintWidth_percent="0.5"
+        app:layout_constraintHeight_percent="0.5"
+        >
+
+                <ImageView
+                    android:id="@+id/thirdimage"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginRight="6dp"
+                    android:src="@drawable/number_3" />
+
+                <TextView
+                    android:id="@+id/thirdtitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/thirdimage"
+                    android:layout_toRightOf="@+id/thirdimage"
+                    android:text="중요하지만 급하지 않은 일"
+                    android:textSize="15dp"
+                    android:textStyle="bold"
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    />
+
+
+        <ListView
+                    android:id="@+id/thirdtext"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/thirdimage"
+                    android:layout_marginTop="5dp"
+                    android:text="100일"
+                    android:textColor="@color/white"
+                    android:textSize="20dp" />
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rightsecondlayout"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="#eeeeee"
+                android:padding="6dp"
+                app:layout_constraintTop_toBottomOf="@id/rightfirstlayout"
+                app:layout_constraintStart_toEndOf="@id/leftsecondlayout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintWidth_percent="0.5"
+                app:layout_constraintHeight_percent="0.5"
+                >
+
+                <ImageView
+                    android:id="@+id/forthimage"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginRight="6dp"
+
+
+                    android:src="@drawable/number_4" />
+
+                <TextView
+                    android:id="@+id/forthtitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/forthimage"
+                    android:layout_toRightOf="@+id/forthimage"
+                    android:text="중요하지도 급하지도 않은 일"
+                    android:textSize="15dp"
+                    android:textStyle="bold"
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    />
+
+                <ListView
+                    android:id="@+id/forthtext"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/forthimage"
+                    android:layout_marginTop="5dp"
+                    android:text="100일"
+                    android:textColor="@color/white"
+                    android:textSize="20dp" />
+
+
+            </RelativeLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="30dp"
+        android:layout_marginBottom="70dp"
+        android:contentDescription="fab"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@android:drawable/ic_input_add" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

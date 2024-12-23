@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="350dp"
+    android:layout_height="wrap_content"
+    android:background="#303030"
+    android:orientation="vertical"
+    android:padding="16dp"
+
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
+
+
+        <ImageView
+            android:id="@+id/iconimage"
+            android:layout_width="30dp"
+            android:layout_height="match_parent" />
+
+        <TextView
+            android:id="@+id/dialog_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="8dp"
+            android:text="새로운"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/date_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:paddingBottom="8dp"
+        android:text="새로운"
+        android:textColor="@color/gray"
+        android:textSize="18sp"
+        android:textStyle="bold"
+
+        />
+
+
+    <LinearLayout
+        android:paddingVertical="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        >
+
+        <ImageView
+            android:id="@+id/firstfeel"
+
+            android:layout_width="70dp"
+            android:layout_height="50dp"
+            android:layout_marginHorizontal="5dp"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:focusable="true"
+
+            android:src="@drawable/feeling5_verryhappy1"
+
+            android:scaleType="centerCrop" />
+
+        <ImageView
+            android:id="@+id/secondfeel"
+            android:layout_width="70dp"
+            android:layout_height="50dp"
+            android:layout_marginHorizontal="5dp"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:focusable="true"
+            android:scaleType="centerCrop"
+
+            android:src="@drawable/feeling4_happy1"
+            />
+
+        <ImageView
+            android:id="@+id/thirdfeel"
+            android:layout_width="70dp"
+            android:layout_height="50dp"
+            android:layout_marginHorizontal="5dp"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:focusable="true"
+            android:scaleType="centerCrop"
+
+            android:src="@drawable/feeling3_natural1"
+            />
+
+        <ImageView
+            android:id="@+id/forthfeel"
+            android:layout_width="70dp"
+            android:layout_height="50dp"
+            android:layout_marginHorizontal="5dp"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:focusable="true"
+            android:scaleType="centerCrop"
+            android:src="@drawable/feeling2_sad1"
+            />
+
+        <ImageView
+            android:id="@+id/fifthfeel"
+            android:layout_width="70dp"
+            android:layout_height="50dp"
+            android:layout_marginHorizontal="5dp"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:focusable="true"
+            android:scaleType="centerCrop"
+            android:src="@drawable/feeling1_verrysad1"
+
+            />
+
+
+    </LinearLayout>
+
+
+    <EditText
+        android:id="@+id/habitlogtext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/edit_text_border"
+        android:gravity="top|start"
+        android:hint="무슨 생각하고 있어요?"
+        android:inputType="textMultiLine"
+        android:lines="5"
+        android:maxLines="10"
+        android:padding="16dp"
+        android:scrollbars="vertical" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="end"
+        android:orientation="horizontal"
+
+        >
+
+        <Button
+            android:id="@+id/cancel_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:text="취소"
+
+            />
+
+        <Button
+            android:id="@+id/ok_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:text="확인" />
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

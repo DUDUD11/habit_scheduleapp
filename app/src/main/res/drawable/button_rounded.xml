@@ -1,0 +1,8 @@
+<!-- res/drawable/circular_button.xml -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 배경 색상 -->
+    <solid android:color="#2196F3" /> <!-- 예시: 보라색 배경 -->
+
+    <!-- 둥근 모서리 (여기서 50dp로 설정하면 원형 모양이 됩니다) -->
+    <corners android:radius="25dp" /> <!-- 반지름을 50dp로 설정 -->
+</shape>
