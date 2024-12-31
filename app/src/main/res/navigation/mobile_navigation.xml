@@ -48,8 +48,17 @@
         <action
             android:id="@+id/HabitFragment_to_HabitDetail"
             app:destination="@id/navigation_habitdetail"
-
             />
+        <action
+            android:id="@+id/HabitFragment_to_navigation_habitstatistics"
+            app:destination="@id/navigation_habitstatistics"
+            />
+
+    <action
+        android:id="@+id/HabitFragment_to_navigation_habitstatisticsday7"
+        app:destination="@id/navigation_habitstatisticsday7"
+        />
+
     <fragment
         android:id="@+id/navigation_diary"
         android:name="com.example.ticktick2.ui.diary.DiaryFragment"
@@ -151,6 +160,35 @@
     <action
         android:id="@+id/action_HabitLog_to_HabitDetail"
         app:destination="@id/navigation_habitdetail" />
+    <action
+        android:id="@+id/action_Habitlog_to_habitstatisticsOne"
+        app:destination="@id/navigation_habitstatisticsOne"
+        />
+
+
+    <fragment
+
+        android:id="@+id/navigation_habitstatistics"
+        android:name="com.example.ticktick2.ui.habit.HabitStatisticsFragment"
+        android:label="habitstatistics"
+        tools:layout="@layout/fragment_habitstatistics"
+        />
+
+    <fragment
+
+        android:id="@+id/navigation_habitstatisticsday7"
+        android:name="com.example.ticktick2.ui.habit.HabitStatisticsDay7Fragment"
+        android:label="habitstatisticsDay7"
+        tools:layout="@layout/fragment_habitstatisticsday7"
+        />
+
+
+    <fragment
+        android:id="@+id/navigation_habitstatisticsOne"
+        android:name="com.example.ticktick2.ui.habit.HabitStatisticsOneFragment"
+        android:label="habitstatisticsOne"
+        tools:layout="@layout/fragment_habitstatisticsone"
+        />
 
 
 

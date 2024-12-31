@@ -389,8 +389,15 @@ public class HabitDetailFragment extends Fragment {
                         new Timer().schedule(new TimerTask() {
                             @Override
                             public void run() {
+
+                                if (!isAdded()) {
+                                    return;
+                                }
+
                                 requireActivity().runOnUiThread(() -> {
                                     // Dialog 생성 및 설정
+
+
                                     Dialog dialog = new Dialog(requireActivity());
                                     dialog.setContentView(R.layout.habitdialog);
 

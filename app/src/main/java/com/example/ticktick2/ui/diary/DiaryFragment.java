@@ -65,11 +65,11 @@ public class DiaryFragment extends Fragment {
                 DiaryList.add(new diary(LocalDate.now().minusDays(i), LocalDateTime.now().minusDays(i), LocalDateTime.now().minusDays(i), (i + "번째 text")));
 
             }
-
+*/
             synchronized (DiaryList) {
                 Collections.sort(DiaryList);
             }
-*/
+
         }
         if(DiaryList!=null && !DiaryList.isEmpty())
         {
@@ -137,16 +137,17 @@ public class DiaryFragment extends Fragment {
         @Override
         public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-
-
             diary holding_diary = items.get(position);
-
-
-
             holder.weekday.setText(holding_diary.date.getDayOfWeek().toString().substring(0,3));
             holder.day.setText(holding_diary.date.getDayOfMonth()+"");
             if(items.get(position).time!=null) {
                 holder.Time.setText(EditTimeString(holding_diary.time.toString()));
+            }
+
+            else
+            {
+                holder.Time.setHint("처음수정한 날짜");
+
             }
 
             if(holding_diary.edittime!=null)
@@ -303,6 +304,18 @@ public class DiaryFragment extends Fragment {
                 });
 
             holder.editbutton.setOnClickListener(b -> {
+
+
+
+                String p = holder.diarytext.getText().toString();
+
+                if(holder.diarytext.getText()==null || p.equals(""))
+                {
+                    Toast.makeText(getActivity().getBaseContext(), "내용을 입력해주세요.",
+                            Toast.LENGTH_SHORT ).show();
+                    return;
+                    
+                }
                 String _text = holder.diarytext.getText().toString();
                 LocalDateTime now = LocalDateTime.now();
                 LocalDate nowdate = LocalDate.now();
@@ -310,21 +323,35 @@ public class DiaryFragment extends Fragment {
                 int real_pos = holder.getAdapterPosition();
                 items.get(real_pos).text = _text;
 
+                Log.d("test",holder.Time.getText().toString());
+
                 if(!WriteDiaryToday)
                 {
-                    if(real_pos==0)
+                    if(real_pos==0 )
                     {
-                        WriteDiaryToday = true;
-                        DiaryList.add(new diary(nowdate, now, null,_text));
-                        holder.Time.setText(EditTimeString(now.toString()));
+                        if(holder.Time.getText().toString().equals("")) {
+                            WriteDiaryToday = true;
+                            holder.Time.setText(EditTimeString(now.toString()));
+                            items.get(real_pos).time = now;
+                            DiaryList.add(new diary(nowdate, now, null, _text));
+                        }
+                        else
+                        {
+                            diary tmp = DiaryList.get(0);
+                            tmp.edittime = now;
+                            tmp.text = _text;
+                            holder.EditTime.setText(EditTimeString(now.toString()));
+                            items.get(real_pos).edittime = now;
+
+                        }
                     }
                     else
                     {
                         diary tmp = DiaryList.get(real_pos-1);
                         tmp.edittime = now;
                         tmp.text = _text;
-                        DiaryList.set(real_pos-1,tmp);
                         holder.EditTime.setText(EditTimeString(now.toString()));
+                        items.get(real_pos).edittime = now;
                     }
                 }
 
@@ -334,6 +361,7 @@ public class DiaryFragment extends Fragment {
                     tmp.edittime = now;
                     tmp.text = _text;
                     DiaryList.set(real_pos,tmp);
+                    items.get(real_pos).edittime = now;
                     holder.EditTime.setText(EditTimeString(now.toString()));
                 }
 
@@ -351,21 +379,44 @@ public class DiaryFragment extends Fragment {
 
                 int real_pos = holder.getAdapterPosition();
 
-                Log.d("delete","pos = "+real_pos);
+                if(real_pos==-1) return;
+
                 if(real_pos==0)
                 {
-                    if(WriteDiaryToday)
+                //    Log.d("test2",holder.Time.getText().toString());
+
+                    String p = holder.Time.getText().toString();
+
+                    if(!p.equals(""))
                     {
-                        DiaryList.remove(real_pos);
+                        if(WriteDiaryToday)
+                        {
+                            WriteDiaryToday=false;
+                        }
+
+                        DiaryList.remove(0);
+                        items.remove(0);
+                        notifyItemRemoved(real_pos);
+
+                        MainActivity activity = (MainActivity) getActivity();
+                        activity.DiaryChangeNotify();
                     }
 
-                    holder.diarytext.setText("");
-                    holder.EditTime.setText("");
-                    holder.Time.setText("");
-                    holder.diarytext.setText("오늘의 일기");
-                    holder.EditTime.setHint("마지막으로 수정한 날짜");
-                    holder.Time.setHint("처음수정한 날짜");
-                    WriteDiaryToday=false;
+                    else {
+
+                        diary tmp = items.get(0);
+                        tmp.text = null;
+                        tmp.edittime = null;
+                        tmp.time = null;
+                        tmp.date = LocalDate.now();
+
+                        holder.diarytext.setText("");
+                        holder.EditTime.setText("");
+                        holder.Time.setText("");
+                        holder.diarytext.setHint("오늘의 일기");
+                        holder.EditTime.setHint("마지막으로 수정한 날짜");
+                        holder.Time.setHint("처음수정한 날짜");
+                    }
                 }
 
                 else

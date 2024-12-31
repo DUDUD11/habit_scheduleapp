@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+
+    <!-- 상단의 LinearLayout -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonone1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@android:color/transparent"
+            app:icon="@drawable/round_arrow_back_ios_24"
+            app:iconTint="@android:color/black"
+            app:iconGravity="textStart" />
+
+        <EditText
+            android:id="@+id/dayseditonetext"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="2110년"
+            android:textAlignment="center"
+            android:background="@android:color/transparent"
+            android:focusable="false"
+            android:clickable="false"
+            />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonone2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@android:color/transparent"
+            app:icon="@drawable/round_arrow_forward_ios_24"
+            app:iconTint="@android:color/black"
+            app:iconGravity="textStart" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        >
+
+        <ImageView
+            android:id="@+id/imagestaticone"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            />
+
+        <TextView
+            android:id="@+id/titletextstaticone"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_toRightOf="@+id/image"
+            android:textSize="20dp"
+            android:gravity="center"
+            android:text="안녕하세요"
+            />
+    </LinearLayout>
+
+
+    <!-- 하단의 ScrollView -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <GridLayout
+            android:id="@+id/gridlayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:columnCount="2"
+            android:layout_marginTop="10dp"
+            >
+
+
+
+        </GridLayout>
+
+    </ScrollView>
+
+</LinearLayout>

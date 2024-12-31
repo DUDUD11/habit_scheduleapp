@@ -378,7 +378,14 @@ public class HabitLogFragment extends Fragment {
             });
         }
 
+        {
+            binding.moreseetextview.setOnClickListener(
+                    v->{
+                        navController.navigate(R.id.action_Habitlog_to_habitstatisticsOne);
+                    }
+            );
 
+        }
 
 
 
@@ -488,8 +495,6 @@ public class HabitLogFragment extends Fragment {
                                         Toast.LENGTH_SHORT ).show();
                                 return;
                             }
-
-
 
                             temperalHabit.CheckedString[date.getYear()-2024][date.getMonth()+1][date.getDay()]=habitlogtext.getText().toString();
 

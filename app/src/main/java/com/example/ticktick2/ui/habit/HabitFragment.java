@@ -7,6 +7,9 @@ import android.os.Debug;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -691,10 +694,51 @@ public class HabitFragment extends Fragment {
 
     }
 
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        // 메뉴 XML을 인플레이트
+
+        inflater.inflate(R.menu.habitstatic, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // 메뉴 항목을 사용하려면 이 호출이 필요합니다.
+        setHasOptionsMenu(true);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if (item.getItemId() == R.id.static_menu) {
+
+            MainActivity activity = (MainActivity) getActivity();
+            NavController navController = activity.navController;
+            navController.navigate(R.id.HabitFragment_to_navigation_habitstatistics);
+            return true;
+        }
+
+        else if(item.getItemId()==R.id.static_day7menu)
+        {
+            MainActivity activity = (MainActivity) getActivity();
+            NavController navController = activity.navController;
+            navController.navigate(R.id.HabitFragment_to_navigation_habitstatisticsday7);
+            return true;
+
+        }
+        
+        super.onOptionsItemSelected(item);
+        return true;
+
+
+    }
+
+
+
+
     @Override
     public void onDestroyView() {
-        MainActivity activity = (MainActivity) getActivity();
-        NavController navController = activity.navController;
 
 
         super.onDestroyView();

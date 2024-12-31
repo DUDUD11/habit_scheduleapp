@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="5dp"
+    >
+
+    <ImageView
+        android:id="@+id/imageview"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_margin="2dp"
+
+        />
+
+    <TextView
+        android:layout_width="100dp"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:id="@+id/textview"
+        android:text="hello adasdfadfad"
+        android:maxLines="1"
+        android:textSize="12dp"
+        android:textStyle="bold"
+        android:layout_margin="2dp"
+        />
+
+    <ImageView
+        android:id="@+id/w1day"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:src="@drawable/transparent_squre"
+        android:background="@drawable/light_gray_square"
+        android:layout_weight="1"
+        android:layout_margin="2dp"
+        />
+    <ImageView
+        android:id="@+id/w2day"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:src="@drawable/transparent_squre"
+        android:background="@drawable/light_gray_square"
+        android:layout_weight="1"
+        android:layout_margin="2dp"
+        />
+
+
+    <ImageView
+        android:id="@+id/w3day"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:src="@drawable/transparent_squre"
+        android:background="@drawable/light_gray_square"
+        android:layout_weight="1"
+        android:layout_margin="2dp"
+        />
+
+
+    <ImageView
+        android:id="@+id/w4day"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:src="@drawable/transparent_squre"
+        android:background="@drawable/light_gray_square"
+        android:layout_weight="1"
+        android:layout_margin="2dp"
+        />
+
+
+    <ImageView
+        android:id="@+id/w5day"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:src="@drawable/transparent_squre"
+        android:background="@drawable/light_gray_square"
+        android:layout_weight="1"
+        android:layout_margin="2dp"
+        />
+
+
+    <ImageView
+        android:id="@+id/w6day"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:src="@drawable/transparent_squre"
+        android:background="@drawable/light_gray_square"
+        android:layout_weight="1"
+        android:layout_margin="2dp"
+        />
+
+
+    <ImageView
+        android:id="@+id/w7day"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:src="@drawable/transparent_squre"
+        android:background="@drawable/light_gray_square"
+        android:layout_weight="1"
+        android:layout_margin="2dp"
+        />
+
+</LinearLayout>
