@@ -213,9 +213,19 @@ public class HabitLogFragment extends Fragment {
 
         int totalHeight = 0;
 
-        View listItem = listAdapter.getView(0, null, listView);
-        listItem.measure(0, 0);
-        totalHeight = listItem.getMeasuredHeight() * listsize;
+
+        for (int i = 0; i < listsize; i++) {
+            View listItem = listAdapter.getView(i, null, listView);
+
+            // MeasureSpec을 사용하여 더 정확하게 측정
+            listItem.measure(
+                    View.MeasureSpec.makeMeasureSpec(listView.getWidth(), View.MeasureSpec.EXACTLY),
+                    View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
+            );
+
+            totalHeight += listItem.getMeasuredHeight();
+        }
+
 
         ViewGroup.LayoutParams params = listView.getLayoutParams();
         params.height = totalHeight + (listView.getDividerHeight() * (listsize));
@@ -361,7 +371,13 @@ public class HabitLogFragment extends Fragment {
             listView = binding.loglist;
             listView.setAdapter(habitLogListAdapter);
             SetTempralHabitLog(LocalDate.now().getYear(),LocalDate.now().getMonthValue());
-            setListViewHeightBasedOnChildren(binding.loglist,temperalHabitLog.size());
+
+            listView.post(new Runnable() {
+                @Override
+                public void run() {
+                    setListViewHeightBasedOnChildren(binding.loglist,temperalHabitLog.size());
+                }
+            });
 
             habitstatistics habitstatistics = validatestatistics(LocalDate.now().getYear(),LocalDate.now().getMonthValue());
 
