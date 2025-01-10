@@ -704,9 +704,6 @@ public class HabitLogFragment extends Fragment {
 
             title.setText(date.getMonthValue()+" 월"+date.getDayOfMonth()+" 일 "+getKoreanDayName(date.toString()));
 
-
-
-
             if(!temperalHabit.CheckedDate[date.getYear()-2024][date.getMonthValue()][date.getDayOfMonth()])
             {
                 imageView.setImageResource(R.drawable.round_cancel_24);
@@ -719,9 +716,182 @@ public class HabitLogFragment extends Fragment {
 
             imagemark.setImageResource(temperalHabit.CheckedFeeling[date.getYear()-2024][date.getMonthValue()][date.getDayOfMonth()]);
 
-
-
             text.setText(temperalHabit.CheckedString[date.getYear()-2024][date.getMonthValue()][date.getDayOfMonth()]);
+
+            rowView.setOnClickListener(r->{
+
+                Dialog dialog = new Dialog(requireActivity());
+                dialog.setContentView(R.layout.habitdialog2);
+                TextView datetitle = dialog.findViewById(R.id.date_title);
+                ImageView firstfeel = dialog.findViewById(R.id.firstfeel);
+                ImageView secondfeel = dialog.findViewById(R.id.secondfeel);
+                ImageView thirdfeel = dialog.findViewById(R.id.thirdfeel);
+                ImageView forthfeel = dialog.findViewById(R.id.forthfeel);
+                ImageView fifthfeel = dialog.findViewById(R.id.fifthfeel);
+                RadioGroup radioGroup = dialog.findViewById(R.id.radiogroup);
+                RadioButton sucRadioButton = dialog.findViewById(R.id.radioButton);
+                RadioButton failRadioButton = dialog.findViewById(R.id.radioButton2);
+
+                EditText habitlogtext = dialog.findViewById(R.id.habitlogtext);
+                Button Okbutton = dialog.findViewById(R.id.ok_button);
+                Button cancelbutton = dialog.findViewById(R.id.cancel_button);
+
+
+                habitlogtext.setText(text.getText());
+                datetitle.setText(date.getYear()+"년 "+(date.getMonthValue())+"월 "+date.getDayOfMonth()+"일 ");
+
+                firstfeel.setOnClickListener(v -> {
+
+                    firstfeel.setImageResource(R.drawable.feeling5_verryhappy2);
+
+                    temperalHabit.CheckedFeeling[date.getYear()-2024][date.getMonthValue()][date.getDayOfMonth()]=R.drawable.feeling5_verryhappy1;
+
+                    secondfeel.setImageResource(R.drawable.feeling4_happy1);
+                    thirdfeel.setImageResource(R.drawable.feeling3_natural1);
+                    forthfeel.setImageResource(R.drawable.feeling2_sad1);
+                    fifthfeel.setImageResource(R.drawable.feeling1_verrysad1);
+
+                });
+                secondfeel.setOnClickListener(v -> {
+                    secondfeel.setImageResource(R.drawable.feeling4_happy2);
+                    temperalHabit.CheckedFeeling[date.getYear()-2024][date.getMonthValue()][date.getDayOfMonth()]=R.drawable.feeling4_happy1;
+
+                    firstfeel.setImageResource(R.drawable.feeling5_verryhappy1);
+
+                    thirdfeel.setImageResource(R.drawable.feeling3_natural1);
+                    forthfeel.setImageResource(R.drawable.feeling2_sad1);
+                    fifthfeel.setImageResource(R.drawable.feeling1_verrysad1);
+
+
+                });
+                thirdfeel.setOnClickListener(v -> {
+                    thirdfeel.setImageResource(R.drawable.feeling3_natural2);
+                    temperalHabit.CheckedFeeling[date.getYear()-2024][date.getMonthValue()][date.getDayOfMonth()]=R.drawable.feeling3_natural1;
+
+                    firstfeel.setImageResource(R.drawable.feeling5_verryhappy1);
+                    secondfeel.setImageResource(R.drawable.feeling4_happy1);
+
+                    forthfeel.setImageResource(R.drawable.feeling2_sad1);
+                    fifthfeel.setImageResource(R.drawable.feeling1_verrysad1);
+
+                });
+
+                forthfeel.setOnClickListener(v -> {
+                    forthfeel.setImageResource(R.drawable.feeling2_sad2);
+                    temperalHabit.CheckedFeeling[date.getYear()-2024][date.getMonthValue()][date.getDayOfMonth()]=R.drawable.feeling2_sad1;
+
+                    firstfeel.setImageResource(R.drawable.feeling5_verryhappy1);
+                    secondfeel.setImageResource(R.drawable.feeling4_happy1);
+                    thirdfeel.setImageResource(R.drawable.feeling3_natural1);
+
+                    fifthfeel.setImageResource(R.drawable.feeling1_verrysad1);
+
+                });
+
+                fifthfeel.setOnClickListener(v -> {
+                    fifthfeel.setImageResource(R.drawable.feeling1_verrysad2);
+                    temperalHabit.CheckedFeeling[date.getYear()-2024][date.getMonthValue()][date.getDayOfMonth()]=R.drawable.feeling1_verrysad1;
+
+                    secondfeel.setImageResource(R.drawable.feeling4_happy1);
+                    thirdfeel.setImageResource(R.drawable.feeling3_natural1);
+                    forthfeel.setImageResource(R.drawable.feeling2_sad1);
+                    firstfeel.setImageResource(R.drawable.feeling5_verryhappy1);
+
+
+                });
+
+
+                // 버튼 클릭 리스너 설정
+                Okbutton.setOnClickListener(v -> {
+                    // 확인 버튼 클릭 시 동작
+
+                    if( temperalHabit.CheckedFeeling[date.getYear()-2024][date.getMonthValue()][date.getDayOfMonth()]==0)
+                    {
+                        Toast.makeText(getActivity().getBaseContext(), "기분을 설정해주세요",
+                                Toast.LENGTH_SHORT ).show();
+                        return;
+                    }
+
+                    temperalHabit.CheckedString[date.getYear()-2024][date.getMonthValue()][date.getDayOfMonth()]=habitlogtext.getText().toString();
+
+                    MainActivity activity = (MainActivity) getActivity();
+
+                    activity.synchronizedHabitList.set(idx, temperalHabit);
+                    activity.DataChangeNotfiy();
+
+                    //SetTempralHabitLog(date.getYear(),date.getMonthValue());
+                    //setListViewHeightBasedOnChildren(binding.loglist,temperalHabitLog.size());
+
+                    habitstatistics habitstatistics = validatestatistics(LocalDate.now().getYear(),LocalDate.now().getMonthValue());
+
+                    binding.consecutivetext.setText(habitstatistics.consecutive+"");
+                    binding.monthlypercentagetext.setText(String.format("%.0f", habitstatistics.monthlyratio)+"%");
+                    binding.monthlytext.setText(habitstatistics.monthlycheckin+"");
+                    binding.wholechecktext.setText(habitstatistics.wholecheckin+"");
+
+
+                    SetDayColor(LocalDate.now().getYear(),LocalDate.now().getMonthValue());
+                    dayColorMap.forEach((key, value) ->
+                    {
+                        EventDecorator decorator = new EventDecorator(key,value);
+                        binding.calendarView.addDecorators(decorator);
+
+                    });
+
+
+                    habitLogListAdapter.notifyDataSetChanged();
+
+
+                    dialog.dismiss(); // 다이얼로그 닫기
+                });
+
+
+                cancelbutton.setOnClickListener(v -> {
+                            // 취소 버튼 클릭 시 동작
+                            temperalHabit = habitViewModel.getSelectedHabit();
+
+                            dialog.dismiss(); // 다이얼로그 닫기
+                        });
+
+                        dialog.show(); // 다이얼로그 표시
+
+
+                        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                            @Override
+                            public void onCheckedChanged(RadioGroup group, int checkedId) {
+
+                                RadioButton selectedRadioButton = group.findViewById(checkedId);
+
+                                if(selectedRadioButton.equals(sucRadioButton))
+                                {
+
+                                    if(!temperalHabit.CheckedDate[date.getYear()-2024][date.getMonthValue()][date.getDayOfMonth()])
+                                    {
+                                        temperalHabit.AchieveDay++;
+                                    }
+
+                                    temperalHabit.CheckedDate[date.getYear()-2024][date.getMonthValue()][date.getDayOfMonth()]=true;
+                                }
+
+                                else if(selectedRadioButton.equals(failRadioButton))
+                                {
+
+                                    if(temperalHabit.CheckedDate[date.getYear()-2024][date.getMonthValue()][date.getDayOfMonth()])
+                                    {
+                                        temperalHabit.AchieveDay--;
+                                    }
+
+                                    temperalHabit.CheckedDate[date.getYear()-2024][date.getMonthValue()][date.getDayOfMonth()]=false;
+                                }
+
+                                else
+                                {
+                                    Log.e("habitlogfragment radiobutton error","no button equal");
+                                }
+
+                            }
+                        });
+            });
 
             return rowView;
         }

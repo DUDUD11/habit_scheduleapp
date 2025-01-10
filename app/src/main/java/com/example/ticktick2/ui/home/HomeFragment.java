@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -627,6 +629,11 @@ public class HomeFragment extends Fragment {
             else
             {
                 imageView.setImageResource(de.Icon);
+
+                if(de.CheckedFeeling[LocalDate.now().getYear()-2024][LocalDate.now().getMonthValue()][LocalDate.now().getDayOfMonth()]!=0)
+                {
+                    imageView.setImageAlpha(128);
+                }
             }
 
             days.setText("오늘");
@@ -654,17 +661,31 @@ public class HomeFragment extends Fragment {
 
             schedule de = scheduleToday.get(pos);
 
+
+
+
+
             title.setText(de.text);
             exday.setText("오늘");
 
             CheckBox button = (CheckBox)rowView.findViewById(R.id.button);
 
+            switch(de.importance)
+            {
+                case 1:
+                    button.setButtonTintList(ColorStateList.valueOf(Color.RED));
+                    break;
+                case 2:
+                    button.setButtonTintList(ColorStateList.valueOf(Color.YELLOW));
+                    break;
+                case 3:
+                    button.setButtonTintList(ColorStateList.valueOf(Color.BLUE));
+                    break;
+                case 4:
+                    button.setButtonTintList(ColorStateList.valueOf(Color.GREEN));
+                    break;
 
-
-
-
-
-
+            }
 
             button.setOnCheckedChangeListener((buttonView, isChecked) -> {
                 if (isChecked) {
@@ -715,7 +736,26 @@ public class HomeFragment extends Fragment {
             title.setText(de.text);
             days.setText(de.due_date.toString());
 
+            days.setTextColor(Color.RED);
+
             CheckBox button = (CheckBox)rowView.findViewById(R.id.button);
+
+            switch(de.importance)
+            {
+                case 1:
+                    button.setButtonTintList(ColorStateList.valueOf(Color.RED));
+                    break;
+                case 2:
+                    button.setButtonTintList(ColorStateList.valueOf(Color.YELLOW));
+                    break;
+                case 3:
+                    button.setButtonTintList(ColorStateList.valueOf(Color.BLUE));
+                    break;
+                case 4:
+                    button.setButtonTintList(ColorStateList.valueOf(Color.GREEN));
+                    break;
+
+            }
 
             button.setOnCheckedChangeListener((buttonView, isChecked) -> {
                 if (isChecked) {

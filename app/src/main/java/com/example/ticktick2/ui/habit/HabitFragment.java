@@ -776,6 +776,11 @@ public class HabitFragment extends Fragment {
             else
             {
                 imageView.setImageResource(de.Icon);
+
+                if(de.CheckedFeeling[LocalDate.now().getYear()-2024][LocalDate.now().getMonthValue()][LocalDate.now().getDayOfMonth()]!=0)
+                {
+                    imageView.setImageAlpha(128);
+                }
             }
 
             days.setText(de.AchieveDay+" 일");
@@ -813,6 +818,10 @@ public class HabitFragment extends Fragment {
             else
             {
                 imageView.setImageResource(de.Icon);
+                if(de.CheckedFeeling[LocalDate.now().getYear()-2024][LocalDate.now().getMonthValue()][LocalDate.now().getDayOfMonth()]!=0)
+                {
+                    imageView.setImageAlpha(128);
+                }
             }
             days.setText(de.AchieveDay+" 일");
             return rowView;
@@ -848,6 +857,11 @@ public class HabitFragment extends Fragment {
             else
             {
                 imageView.setImageResource(de.Icon);
+
+                if(de.CheckedFeeling[LocalDate.now().getYear()-2024][LocalDate.now().getMonthValue()][LocalDate.now().getDayOfMonth()]!=0)
+                {
+                    imageView.setImageAlpha(128);
+                }
             }
             days.setText(de.AchieveDay+" 일");
             return rowView;
@@ -883,6 +897,11 @@ public class HabitFragment extends Fragment {
             else
             {
                 imageView.setImageResource(de.Icon);
+
+                if(de.CheckedFeeling[LocalDate.now().getYear()-2024][LocalDate.now().getMonthValue()][LocalDate.now().getDayOfMonth()]!=0)
+                {
+                    imageView.setImageAlpha(128);
+                }
             }
             days.setText(de.AchieveDay+" 일");
             return rowView;

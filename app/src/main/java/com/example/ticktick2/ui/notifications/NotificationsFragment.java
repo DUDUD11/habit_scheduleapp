@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -582,10 +584,11 @@ public class NotificationsFragment extends Fragment {
             schedule de = scheduleI.get(pos);
 
             title.setText(de.text);
+
             exday.setText(de.due_date.toString());
 
             CheckBox button = (CheckBox)rowView.findViewById(R.id.button);
-
+            button.setButtonTintList(ColorStateList.valueOf(Color.RED));
             button.setOnCheckedChangeListener((buttonView, isChecked) -> {
                 if (isChecked) {
                     // 체크된 경우 처리
@@ -636,10 +639,11 @@ public class NotificationsFragment extends Fragment {
             schedule de = scheduleII.get(pos);
 
             title.setText(de.text);
+
             exday.setText(de.due_date.toString());
 
             CheckBox button = (CheckBox)rowView.findViewById(R.id.button);
-
+            button.setButtonTintList(ColorStateList.valueOf(Color.YELLOW));
             button.setOnCheckedChangeListener((buttonView, isChecked) -> {
                 if (isChecked) {
                     // 체크된 경우 처리
@@ -687,10 +691,11 @@ public class NotificationsFragment extends Fragment {
             schedule de = scheduleIII.get(pos);
 
             title.setText(de.text);
+
             exday.setText(de.due_date.toString());
 
             CheckBox button = (CheckBox)rowView.findViewById(R.id.button);
-
+            button.setButtonTintList(ColorStateList.valueOf(Color.BLUE));
             button.setOnCheckedChangeListener((buttonView, isChecked) -> {
                 if (isChecked) {
                     // 체크된 경우 처리
@@ -738,10 +743,11 @@ public class NotificationsFragment extends Fragment {
 
             schedule de = scheduleIV.get(pos);
             title.setText(de.text);
+
             exday.setText(de.due_date.toString());
 
             CheckBox button = (CheckBox)rowView.findViewById(R.id.button);
-
+            button.setButtonTintList(ColorStateList.valueOf(Color.GREEN));
             button.setOnCheckedChangeListener((buttonView, isChecked) -> {
                 if (isChecked) {
                     // 체크된 경우 처리

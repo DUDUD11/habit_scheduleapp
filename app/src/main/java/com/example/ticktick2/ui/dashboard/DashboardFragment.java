@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Debug;
@@ -79,6 +81,9 @@ public class DashboardFragment extends Fragment {
     private Set<CalendarDay> dayScheduleSet;
 
     private CalendarDay SelectedDay=CalendarDay.today();
+
+    private final CalendarDay today = CalendarDay.today();
+    private final LocalDate today_local = LocalDate.now();
 
     private void showOptionDialog(schedule item) {
         new AlertDialog.Builder(getActivity())
@@ -584,12 +589,11 @@ public class DashboardFragment extends Fragment {
 
                     else
                     {
-                        CalendarDay _day = CalendarDay.today();
+                        SelectedDay = CalendarDay.today();
 
-                        binding.calendarView.setSelectedDate(_day);
+                        binding.calendarView.setSelectedDate(SelectedDay);
 
-
-                        GetMonthlySchedule(_day.getYear(), _day.getMonth() + 1);
+                        GetMonthlySchedule(SelectedDay.getYear(), SelectedDay.getMonth() + 1);
                         GetScheduleday(LocalDate.now());
                         GetHabitToday(LocalDate.now());
 
@@ -845,6 +849,11 @@ public class DashboardFragment extends Fragment {
             else
             {
                 imageView.setImageResource(de.Icon);
+
+                if(de.CheckedFeeling[LocalDate.now().getYear()-2024][LocalDate.now().getMonthValue()][LocalDate.now().getDayOfMonth()]!=0)
+                {
+                    imageView.setImageAlpha(128);
+                }
             }
 
             days.setText("오늘");
@@ -873,9 +882,47 @@ public class DashboardFragment extends Fragment {
             schedule de = scheduleToday.get(pos);
 
             title.setText(de.text);
-            exday.setText("오늘");
 
+            LocalDate tmp_selectday =  LocalDate.of(SelectedDay.getYear(),SelectedDay.getMonth()+1,SelectedDay.getDay());
+
+            long daysBetween = ChronoUnit.DAYS.between(today_local, tmp_selectday);
+            daysBetween = Math.abs(daysBetween);
+
+            if(SelectedDay.isInRange(today,today)) {
+                exday.setText("오늘");
+            }
+
+            else
+            {
+               if(SelectedDay.isAfter(today))
+               {
+                   exday.setText(daysBetween+"일 후");
+               }
+
+               else
+               {
+                   exday.setText(daysBetween+"일 전");
+               }
+
+            }
             CheckBox button = (CheckBox)rowView.findViewById(R.id.button);
+
+            switch(de.importance)
+            {
+                case 1:
+                    button.setButtonTintList(ColorStateList.valueOf(Color.RED));
+                    break;
+                case 2:
+                    button.setButtonTintList(ColorStateList.valueOf(Color.YELLOW));
+                    break;
+                case 3:
+                    button.setButtonTintList(ColorStateList.valueOf(Color.BLUE));
+                    break;
+                case 4:
+                    button.setButtonTintList(ColorStateList.valueOf(Color.GREEN));
+                    break;
+
+            }
 
             button.setOnCheckedChangeListener((buttonView, isChecked) -> {
                 if (isChecked) {
