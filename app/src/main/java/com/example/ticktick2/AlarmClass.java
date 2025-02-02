@@ -1,9 +1,7 @@
 package com.example.ticktick2;
 
 import static android.app.PendingIntent.getActivity;
-import static androidx.core.content.ContextCompat.getSystemService;
 
-import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -18,11 +16,14 @@ import android.widget.Toast;
 
 import androidx.core.app.NotificationCompat;
 
+import com.example.ticktick2.dataobject.Alarm;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneOffset;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Random;
 
 public class AlarmClass extends BroadcastReceiver {
@@ -77,17 +78,49 @@ public class AlarmClass extends BroadcastReceiver {
         notificationManager.notify(new Random().nextInt(), notification);  // 알림 ID가 1인 알림을 표시
     }
 
+    private Alarm Intent_to_Alarm(Intent intent)
+    {
+        Long alarmTime = intent.getLongExtra("alarmTime",-1);
+        String alarmName = intent.getStringExtra("alarmName");
+        int Frequency = intent.getIntExtra("Frequency",-1);
+        int weekends = intent.getIntExtra("weekends",-1);
+        int Icon = intent.getIntExtra("Icon",-1);
+        return new Alarm(alarmName,alarmTime,Icon,Frequency,weekends);
+    }
+
 
     @Override
     public void onReceive(Context context, Intent intent) {
 
+        if (Intent.ACTION_BOOT_COMPLETED.equals(intent.getAction())) {
+
+            List<Alarm> alarmList = AlarmBootClass.loadAlarmList(context);
+            for(Alarm a : alarmList)
+            {
+                Intent tmp_intent = MakeIntent(context,a.getAlarmName(),a.getAlarmTime(),a.getDrawId(),a.getFrequency(),a.getWeekends());
+
+                if(alreadypass(a.getAlarmTime()))
+                {
+                    AlarmBootClass.removeAlarm(context,a);
+                    Intent newIntent = setNextAlarm(context,tmp_intent);
+                    Alarm newAlarm = Intent_to_Alarm(newIntent);
+                    AlarmBootClass.addAlarm(context,newAlarm);
+                }
+
+                else
+                {
+                    setCurrentAlarm(context,tmp_intent);
+                }
+
+            }
 
 
-        
-        showNotification(context, intent);
+        }
 
-        setNextAlarm(context,intent);
-
+        else {
+            showNotification(context, intent);
+            setNextAlarm(context, intent);
+        }
     }
 
     public static long MakeAlarmLong(Context context, LocalTime time,int AlarmDate)
@@ -96,17 +129,11 @@ public class AlarmClass extends BroadcastReceiver {
 
 
         LocalDate date = LocalDate.now();
-
-        // LocalDate와 LocalTime을 결합하여 LocalDateTime을 생성
         LocalDateTime dateTime = date.atTime(time);
-
-        // AlarmDate만큼 날짜를 앞당기기 (예: 3일을 더 추가)
         LocalDateTime alarmDateTime = dateTime.plusDays(AlarmDate);
 
         Long x = alarmDateTime.toInstant(ZoneOffset.UTC).toEpochMilli()-LocalDateTime.now().toInstant(ZoneOffset.UTC).toEpochMilli();
-        x/=1000;
 
-      //  Toast.makeText(context, x+"초" , Toast.LENGTH_SHORT).show();
 
         // LocalDateTime을 밀리초로 변환
         return alarmDateTime.toInstant(ZoneOffset.UTC).toEpochMilli();
@@ -135,26 +162,68 @@ public class AlarmClass extends BroadcastReceiver {
         return intent;
     }
 
-    public void cancelAlarm(Context context, Intent GetIntent) {
+    public Intent MakeIntent(Context context, Alarm alarm)
+    {
+
+        if(alarm == null)
+        {
+            Toast.makeText(context, "makeintent에서 오류났으니 호출요망" ,
+                    Toast.LENGTH_SHORT).show();
+            return null;
+            
+        }
+        
+
+        Intent intent = new Intent(context, AlarmClass.class);
+
+        intent.putExtra("alarmTime",alarm.getAlarmTime());
+        intent.putExtra("alarmName",alarm.getAlarmName());
+        intent.putExtra("Icon",alarm.getDrawId());
+
+        if(alarm.getFrequency()==-1)
+        {
+            intent.putExtra("weekends",alarm.getWeekends());
+        }
+        else
+        {
+            intent.putExtra("Frequency",alarm.getFrequency());
+        }
+        return intent;
+    }
+
+
+    public void cancelAlarmAndRemoveAlarm(Context context, Intent GetIntent) {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, GetIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+        Long alarmTime = GetIntent.getLongExtra("alarmTime",-1);
+        String alarmName = GetIntent.getStringExtra("alarmName");
+        int Frequency = GetIntent.getIntExtra("Frequency",-1);
+        int weekends = GetIntent.getIntExtra("weekends",-1);
+        int Icon = GetIntent.getIntExtra("Icon",-1);
+
+        Alarm removeAlarm = new Alarm(alarmName,alarmTime,Icon,Frequency,weekends);
+        AlarmBootClass.removeAlarm(context,removeAlarm);
 
         // 알람 취소
         if (alarmManager != null) {
             alarmManager.cancel(pendingIntent); // 알람 취소
+
+
         }
 
-        else
-        {
-            Toast.makeText(context, "삭제할 알람이 없습니다. 업데이트 이후 첫수정 혹은 알람이 이미 울렸을때만 발생합니다." ,
-                    Toast.LENGTH_SHORT).show();
-        }
     }
 
-    public void startAlarm(Context context, Intent getIntent)
+    public void startAlarmAndAddAlarm(Context context, Intent getIntent)
     {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Long alarmTime = getIntent.getLongExtra("alarmTime",-1);
+        String alarmName = getIntent.getStringExtra("alarmName");
+        int Frequency = getIntent.getIntExtra("Frequency",-1);
+        int weekends = getIntent.getIntExtra("weekends",-1);
+        int Icon = getIntent.getIntExtra("Icon",-1);
+
+        Alarm newalarm = new Alarm(alarmName,alarmTime,Icon,Frequency,weekends);
+        AlarmBootClass.addAlarm(context,newalarm);
 
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, getIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
@@ -178,7 +247,39 @@ public class AlarmClass extends BroadcastReceiver {
         }
     }
 
-    public void setNextAlarm(Context context, Intent getIntent) {
+
+    private boolean alreadypass (long alarmtime)
+    {
+        return System.currentTimeMillis()>alarmtime;
+    }
+
+    public void setCurrentAlarm(Context context, Intent getIntent)
+    {
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, getIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+        Long alarmTime = getIntent.getLongExtra("alarmTime",-1);
+        // 다음 알람 설정
+        if (alarmManager != null) {
+
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                alarmManager.setExactAndAllowWhileIdle(
+                        AlarmManager.RTC_WAKEUP,
+                        alarmTime,
+                        pendingIntent
+                );
+
+            } else {
+                alarmManager.setExact(
+                        AlarmManager.RTC_WAKEUP,
+                        alarmTime,
+                        pendingIntent
+                );
+            }
+        }
+    }
+
+    public Intent setNextAlarm(Context context, Intent getIntent) {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
         Intent intent = new Intent(context, AlarmClass.class);
@@ -195,12 +296,21 @@ public class AlarmClass extends BroadcastReceiver {
         {
             Toast.makeText(context, "에러가 났으니 호출요망" ,
                     Toast.LENGTH_SHORT).show();
-            return;
+            return null;
         }
 
         if(Frequency!=-1)
         {
-            alarmTime+= (long)(86400*1000*Frequency);
+
+
+            LocalDateTime now = LocalDateTime.now();
+
+            while(now.toInstant(ZoneOffset.UTC).toEpochMilli()>alarmTime)
+            {
+                alarmTime+= (long)(86400*1000*Frequency);
+                now.plusDays(Frequency);
+            }
+
             intent.putExtra("Frequency",Frequency);
         }
 
@@ -209,7 +319,7 @@ public class AlarmClass extends BroadcastReceiver {
             int today = LocalDate.now().getDayOfWeek().getValue()-1;
             boolean[] dates = new boolean[7];
             int tmp = weekends;
-            int next=0;
+            int next=-1;
 
             for(int i=0;i<7;i++)
             {
@@ -243,11 +353,11 @@ public class AlarmClass extends BroadcastReceiver {
                 }
             }
             
-            if(next==0)
+            if(next==-1)
             {
                 Toast.makeText(context, "next날짜의 오류가 났네요" ,
                         Toast.LENGTH_SHORT).show();
-                return;
+                return null;
             }
 
             next = (next-today+7)%7;
@@ -281,5 +391,7 @@ public class AlarmClass extends BroadcastReceiver {
                 );
             }
         }
+
+        return intent;
     }
 }

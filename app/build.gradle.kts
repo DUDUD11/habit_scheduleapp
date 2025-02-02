@@ -58,6 +58,7 @@ dependencies {
     implementation("com.prolificinteractive:material-calendarview:1.4.0")
     implementation("com.fasterxml.jackson.core:jackson-databind:2.15.2")
     implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310")
+    implementation ("com.google.code.gson:gson:2.8.8")
 
 
     testImplementation(libs.junit)

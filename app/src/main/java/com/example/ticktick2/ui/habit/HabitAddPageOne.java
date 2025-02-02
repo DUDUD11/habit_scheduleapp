@@ -136,7 +136,7 @@ public class HabitAddPageOne extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
-        Log.d("delete", "habitaddpageone");
+
     }
 
     public class HabitImageAdapter extends BaseAdapter

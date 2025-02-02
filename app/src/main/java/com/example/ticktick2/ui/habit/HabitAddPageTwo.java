@@ -1,6 +1,5 @@
 package com.example.ticktick2.ui.habit;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
@@ -12,13 +11,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CalendarView;
 import android.widget.CompoundButton;
-import android.widget.LinearLayout;
 import android.widget.NumberPicker;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.TextView;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
@@ -654,10 +650,6 @@ public class HabitAddPageTwo extends Fragment {
         binding.newHabitSavebutton.setOnClickListener(v -> {
 
 
-
-
-         //
-
             List<habit>  synchronizedHabitList = activity.synchronizedHabitList;
 
             if(!habitViewModel.editinghabit) {
@@ -682,7 +674,7 @@ public class HabitAddPageTwo extends Fragment {
                         }
 
                         Intent intent = alarmClass.MakeIntent(getContext(), AddHabit.Name,alarm_time, AddHabit.Icon,AddHabit.Frequency, 0);
-                        alarmClass.startAlarm(getContext(),intent);
+                        alarmClass.startAlarmAndAddAlarm(getContext(),intent);
                     }
                     else
                     {
@@ -745,7 +737,7 @@ public class HabitAddPageTwo extends Fragment {
                         }
 
                         Intent intent = alarmClass.MakeIntent(getContext(), AddHabit.Name,alarm_time,AddHabit.Icon, -1 , weeks);
-                        alarmClass.startAlarm(getContext(),intent);
+                        alarmClass.startAlarmAndAddAlarm(getContext(),intent);
                     }
 
 
@@ -788,7 +780,7 @@ public class HabitAddPageTwo extends Fragment {
                                 }
 
                                 Intent intent = alarmClass.MakeIntent(getContext(), original.Name,alarm_time, AddHabit.Icon,original.Frequency, 0);
-                                alarmClass.cancelAlarm(getContext(),intent);
+                                alarmClass.cancelAlarmAndRemoveAlarm(getContext(),intent);
                             }
                             else
                             {
@@ -850,7 +842,7 @@ public class HabitAddPageTwo extends Fragment {
 
                                 Intent intent = alarmClass.MakeIntent(getContext(), original.Name,alarm_time,AddHabit.Icon, -1 , weeks);
 
-                                alarmClass.cancelAlarm(getContext(),intent);
+                                alarmClass.cancelAlarmAndRemoveAlarm(getContext(),intent);
                             }
 
 
@@ -879,7 +871,7 @@ public class HabitAddPageTwo extends Fragment {
                             }
 
                             Intent intent = alarmClass.MakeIntent(getContext(), AddHabit.Name,alarm_time,AddHabit.Icon, AddHabit.Frequency, 0);
-                            alarmClass.startAlarm(getContext(),intent);
+                            alarmClass.startAlarmAndAddAlarm(getContext(),intent);
                         }
                         else
                         {
@@ -940,7 +932,7 @@ public class HabitAddPageTwo extends Fragment {
                             }
 
                             Intent intent = alarmClass.MakeIntent(getContext(), AddHabit.Name,alarm_time, AddHabit.Icon,-1 , weeks);
-                            alarmClass.startAlarm(getContext(),intent);
+                            alarmClass.startAlarmAndAddAlarm(getContext(),intent);
                         }
 
 

@@ -3,6 +3,7 @@ package com.example.ticktick2.ui.habit;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -31,16 +32,24 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
 
+import com.example.ticktick2.AlarmBootClass;
+import com.example.ticktick2.AlarmClass;
 import com.example.ticktick2.MainActivity;
 import com.example.ticktick2.R;
 import com.example.ticktick2.databinding.FragmentHabitsdetailBinding;
+import com.example.ticktick2.dataobject.Alarm;
 import com.example.ticktick2.dataobject.habit;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.time.DayOfWeek;
+import java.time.Instant;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
@@ -98,10 +107,50 @@ public class HabitDetailFragment extends Fragment {
 
             MainActivity activity = (MainActivity) getActivity();
 
+            habit tmp = habitViewModel.getSelectedHabit();
+            if(tmp.alarm)
+            {
+                AlarmClass alarmClass = new AlarmClass();
+                List<Alarm> alarmList = AlarmBootClass.loadAlarmList(getContext());
+                Alarm save = null;
+
+                for(Alarm a : alarmList)
+                {
+                    if(a.getAlarmName().equals(tmp.Name))
+                    {
+                        Long time = a.getAlarmTime();
+                        LocalTime localTime = Instant.ofEpochMilli(time)
+                                .atZone(ZoneOffset.UTC)  // UTC 시간대에 맞게 변환
+                                .toLocalDateTime().toLocalTime();
+
+                        if(!localTime.isAfter(tmp.Alarm_time) && !localTime.isBefore(tmp.Alarm_time))
+                        {
+                            save = a;
+                            break;
+
+                        }
+
+                    }
+
+                }
+
+                if(save ==null)
+                {
+
+                    Toast.makeText(getContext(), "알람 업데이트 이전생성했다면 나타납니다" ,
+                            Toast.LENGTH_SHORT).show();
+                }
+                
+                else {
+
+                    Intent intent = alarmClass.MakeIntent(getContext(), save);
+                    alarmClass.cancelAlarmAndRemoveAlarm(getContext(), intent);
+                }
+            }
+
+
             activity.synchronizedHabitList.remove(habitViewModel.getSelectedHabit());
-
             activity.DataChangeNotfiy();
-
             habitViewModel.setSelectedHabit(null);
 
             requireActivity().onBackPressed();
