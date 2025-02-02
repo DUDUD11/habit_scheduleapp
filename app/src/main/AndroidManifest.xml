@@ -1,14 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
+<!--
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
 
+
+    <uses-permission android:name="android.permission.USE_EXACT_ALARM" />!-->
+
+    <uses-permission android:name="android.permission.USE_EXACT_ALARM" />
+    <uses-permission android:name="com.android.alarm.permission.SET_ALARM"/>
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <application
+
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/ic_fruit_c"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/ic_fruit_c"
         android:supportsRtl="true"
         android:theme="@style/Theme.TickTick2"
         tools:targetApi="31">
@@ -21,7 +30,14 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+
         </activity>
+        <receiver
+            android:name=".AlarmClass"
+            android:exported="true" />
+
+
     </application>
 
 </manifest>

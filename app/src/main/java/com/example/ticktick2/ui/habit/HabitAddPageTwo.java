@@ -3,6 +3,7 @@ package com.example.ticktick2.ui.habit;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -27,6 +28,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.NavOptions;
 
 
+import com.example.ticktick2.AlarmClass;
 import com.example.ticktick2.MainActivity;
 import com.example.ticktick2.R;
 import com.example.ticktick2.databinding.FragmentHabitsaddpagetwoBinding;
@@ -52,6 +54,8 @@ public class HabitAddPageTwo extends Fragment {
     private FragmentHabitsaddpagetwoBinding binding;
     private HabitViewModel habitViewModel;
 
+    private habit edit_not_change_habit=null;
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         habitViewModel =
@@ -60,66 +64,183 @@ public class HabitAddPageTwo extends Fragment {
         binding = FragmentHabitsaddpagetwoBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        {
-            binding.monbutton.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.button_rounded));
-            binding.tuebutton.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.button_rounded));
-            binding.wedbutton.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.button_rounded));
-            binding.thubutton.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.button_rounded));
-            binding.fributton.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.button_rounded));
-            binding.satbutton.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.button_rounded));
-            binding.sunbutton.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.button_rounded));
-            AddHabit = habitViewModel.newHabit.getValue();
-            Arrays.fill(AddHabit.frequencyDay, true);
-        }
 
-        {
-            binding.daybutton.setTextColor(getResources().getColor(R.color.blue_text));
-            binding.frequencybutton.setTextColor(getResources().getColor(R.color.white));
-
-
-            AddHabit.Frequency=0;
-            Arrays.fill(AddHabit.frequencyDay,true);
-
-
-            binding.frequencybuttonLayout.setVisibility(View.GONE);
-
-
-
-            if(!habitViewModel.editinghabit) {
-                binding.startdayTextview.setText(LocalDate.now().toString());
-                AddHabit.StartDate = LocalDate.now();
-            }
-
-            else
+        if(!habitViewModel.editinghabit) {
             {
-                binding.startdayTextview.setText(AddHabit.StartDate.toString());
+                binding.monbutton.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.button_rounded));
+                binding.tuebutton.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.button_rounded));
+                binding.wedbutton.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.button_rounded));
+                binding.thubutton.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.button_rounded));
+                binding.fributton.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.button_rounded));
+                binding.satbutton.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.button_rounded));
+                binding.sunbutton.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.button_rounded));
+                AddHabit = habitViewModel.newHabit.getValue();
+                Arrays.fill(AddHabit.frequencyDay, true);
             }
 
-
-            AddHabit.group = habit.Group.etc;
-
-            binding.radioetc.setChecked(true);
-
-            LocalTime _time = LocalTime.now();
-
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+            {
+                binding.daybutton.setTextColor(getResources().getColor(R.color.blue_text));
+                binding.frequencybutton.setTextColor(getResources().getColor(R.color.white));
 
 
-            String formattedTime = _time.format(formatter);
-
-            AddHabit.Alarm_time = LocalTime.parse(formattedTime,formatter);
-
-            binding.timeTextView.setText(formattedTime);
+                AddHabit.Frequency = 0;
+                Arrays.fill(AddHabit.frequencyDay, true);
 
 
+                binding.frequencybuttonLayout.setVisibility(View.GONE);
 
+
+                if (!habitViewModel.editinghabit) {
+                    binding.startdayTextview.setText(LocalDate.now().toString());
+                    AddHabit.StartDate = LocalDate.now();
+                } else {
+                    binding.startdayTextview.setText(AddHabit.StartDate.toString());
+                }
+
+
+                AddHabit.group = habit.Group.etc;
+
+                binding.radioetc.setChecked(true);
+
+                LocalTime _time = LocalTime.now();
+
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+
+
+                String formattedTime = _time.format(formatter);
+
+                AddHabit.Alarm_time = LocalTime.parse(formattedTime, formatter);
+
+                binding.timeTextView.setText(formattedTime);
+
+
+            }
         }
 
+        else {
+
+            habit _edithabit = habitViewModel.getSelectedHabit();
+            binding.startdayTextview.setText(_edithabit.StartDate.toString());
+
+            edit_not_change_habit = _edithabit.deepcopy();
+
+
+            if (_edithabit.Frequency == 0) {
+                if (_edithabit.frequencyDay[0]) {
+                    binding.monbutton.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.button_rounded));
+                    binding.monbutton.setChecked(true);
+                }
+                if (_edithabit.frequencyDay[1]) {
+                    binding.tuebutton.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.button_rounded));
+                    binding.tuebutton.setChecked(true);
+                }
+                if (_edithabit.frequencyDay[2]) {
+                    binding.wedbutton.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.button_rounded));
+                    binding.wedbutton.setChecked(true);
+                }
+                if (_edithabit.frequencyDay[3]) {
+                    binding.thubutton.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.button_rounded));
+                    binding.thubutton.setChecked(true);
+                }
+                if (_edithabit.frequencyDay[4]) {
+                    binding.fributton.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.button_rounded));
+                    binding.fributton.setChecked(true);
+                }
+                if (_edithabit.frequencyDay[5]) {
+                    binding.satbutton.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.button_rounded));
+                    binding.satbutton.setChecked(true);
+                }
+                if (_edithabit.frequencyDay[6])
+                {
+                    binding.sunbutton.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.button_rounded));
+                    binding.sunbutton.setChecked(true);
+                }
+                binding.daybutton.setTextColor(getResources().getColor(R.color.blue_text));
+                binding.frequencybutton.setTextColor(getResources().getColor(R.color.white));
+                binding.daybuttonLayout.setVisibility(View.VISIBLE);
+                binding.frequencybuttonLayout.setVisibility(View.GONE);
+
+
+            } else {
+
+                binding.daybutton.setTextColor(getResources().getColor(R.color.white));
+                binding.frequencybutton.setTextColor(getResources().getColor(R.color.blue_text));
+                binding.frequencybuttonLayout.setVisibility(View.VISIBLE);
+                binding.daybuttonLayout.setVisibility(View.GONE);
+                binding.numberPicker.setMinValue(2);
+                binding.numberPicker.setMaxValue(30);
+                binding.numberPicker.setValue(_edithabit.Frequency);
+
+                binding.monbutton.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.button_rounded));
+                binding.tuebutton.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.button_rounded));
+                binding.wedbutton.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.button_rounded));
+                binding.thubutton.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.button_rounded));
+                binding.fributton.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.button_rounded));
+                binding.satbutton.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.button_rounded));
+                binding.sunbutton.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.button_rounded));
+                Arrays.fill(_edithabit.frequencyDay, true);
+            }
+
+            {
+
+                binding.startdayTextview.setText(_edithabit.StartDate.toString());
+                if(_edithabit.EndDate!=null) {
+                    binding.finishdayTextview.setText(_edithabit.EndDate.toString());
+                }
+                else
+                {
+                    binding.finishdayTextview.setText("영원히");
+                }
+
+                if(_edithabit.group==habit.Group.morning)
+                {
+                    binding.radiomorning.setChecked(true);
+                }
+
+                else if(_edithabit.group==habit.Group.afternoon)
+                {
+                    binding.radioafternoon.setChecked(true);
+                }
+                else if(_edithabit.group==habit.Group.night)
+                {
+                    binding.radioNight.setChecked(true);
+                }
+                else
+                {
+                    binding.radioetc.setChecked(true);
+                }
+
+                binding.switchAlarm.setChecked(_edithabit.alarm);
+                binding.timeTextView.setText(_edithabit.Alarm_time.toString());
+                binding.switch1.setChecked(_edithabit.HabitLog);
+
+               /*
+                LocalTime _time = LocalTime.now();
+
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+
+
+                String formattedTime = _time.format(formatter);
+
+                AddHabit.Alarm_time = LocalTime.parse(formattedTime, formatter);
+
+                binding.timeTextView.setText(formattedTime);
+*/
+
+                // addhabit editinghabit 동기화
+                AddHabit = _edithabit;
+
+            }
+        }
         {
             binding.numberPicker.setMinValue(2);
             binding.numberPicker.setMaxValue(30);
-            binding.numberPicker.setValue(2);
 
+
+            if(!habitViewModel.editinghabit) {
+                binding.numberPicker.setValue(2);
+
+            }
             binding.numberPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
                 @Override
                 public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
@@ -189,8 +310,7 @@ public class HabitAddPageTwo extends Fragment {
                                 );
 
 
-                                Toast.makeText(getActivity().getBaseContext(), localDate.toString(),
-                                        Toast.LENGTH_SHORT ).show();
+
 
                                 binding.startdayTextview.setText(localDate.toString());
 
@@ -250,8 +370,7 @@ public class HabitAddPageTwo extends Fragment {
 
                                 if(localDate.isBefore(LocalDate.now()))
                                 {
-                                    Toast.makeText(getActivity().getBaseContext(), localDate.toString(),
-                                            Toast.LENGTH_SHORT ).show();
+
 
                                     binding.finishdayTextview.setText("영원히");
 
@@ -313,6 +432,8 @@ public class HabitAddPageTwo extends Fragment {
 
             }
         });
+
+
 
 
         return root;
@@ -507,27 +628,332 @@ public class HabitAddPageTwo extends Fragment {
             );
 
             timePickerDialog.show();
-
-
-
-
         });
 
+        binding.switchAlarm.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    // Switch가 켜졌을 때 실행되는 코드
+
+                    AddHabit.alarm=true;
+                    Log.d("alarm on",AddHabit.alarm+"");
+
+                } else {
+                    // Switch가 꺼졌을 때 실행되는 코드
+
+                    AddHabit.alarm=false;
+                    Log.d("alarm off",AddHabit.alarm+"");
+
+                }
+            }
+        });
+
+
+
         binding.newHabitSavebutton.setOnClickListener(v -> {
+
+
+
+
+         //
 
             List<habit>  synchronizedHabitList = activity.synchronizedHabitList;
 
             if(!habitViewModel.editinghabit) {
+
+                if(AddHabit.alarm)
+                {
+
+                    AlarmClass alarmClass = new AlarmClass();
+
+                    if(AddHabit.Frequency!=0)
+                    {
+
+                        long alarm_time;
+
+                         if(LocalTime.now().isAfter(AddHabit.Alarm_time))
+                            {
+                                alarm_time = AlarmClass.MakeAlarmLong(getContext(),AddHabit.Alarm_time,AddHabit.Frequency);
+                            }
+                        else
+                        {
+                            alarm_time = AlarmClass.MakeAlarmLong(getContext(),AddHabit.Alarm_time,0);
+                        }
+
+                        Intent intent = alarmClass.MakeIntent(getContext(), AddHabit.Name,alarm_time, AddHabit.Icon,AddHabit.Frequency, 0);
+                        alarmClass.startAlarm(getContext(),intent);
+                    }
+                    else
+                    {
+                        long alarm_time;
+                        int today = LocalDate.now().getDayOfWeek().getValue()-1;
+                        int weeks = 1111111;
+
+                        int helper=0;
+
+                        for(int i=1000000;i>0;i/=10)
+                        {
+
+                            if(!AddHabit.frequencyDay[helper]) {
+                                weeks -=i;
+                            }
+                            helper++;
+                        }
+
+                        if(LocalTime.now().isAfter(AddHabit.Alarm_time))
+                        {
+                            int next = today+1;
+
+                            for(int i=next;i<next+7;)
+                            {
+                                int tmp = (i+7)%7;
+                                if(AddHabit.frequencyDay[tmp])
+                                {
+                                    next=i;
+                                    break;
+
+                                }
+
+                                i++;
+                            }
+
+                            next = (next-today+7)%7;
+
+                            alarm_time = AlarmClass.MakeAlarmLong(getContext(),AddHabit.Alarm_time,next);
+
+                        }
+                        else
+                        {
+
+                            int next = today;
+
+                            for(int i=next;i<next+7;)
+                            {
+                                int tmp = (i+7)%7;
+                                if(AddHabit.frequencyDay[tmp])
+                                {
+                                    next=i;
+                                    break;
+
+                                }
+
+                                i++;
+                            }
+                            next = (next-today+7)%7;
+                            alarm_time = AlarmClass.MakeAlarmLong(getContext(),AddHabit.Alarm_time,next);
+                        }
+
+                        Intent intent = alarmClass.MakeIntent(getContext(), AddHabit.Name,alarm_time,AddHabit.Icon, -1 , weeks);
+                        alarmClass.startAlarm(getContext(),intent);
+                    }
+
+
+                }
+
                 synchronizedHabitList.add(AddHabit);
+
+
+
+
+            //    alarmClass.setNextAlarm();
+
+
             }
             else {
                 int idx = synchronizedHabitList.indexOf(habitViewModel.getSelectedHabit());
                 if(idx!=-1)
                 {
-                    synchronizedHabitList.set(idx,AddHabit);
-                }
+                    habit original = edit_not_change_habit;
 
+                    if(original.alarm)
+                    {
+
+
+
+                            AlarmClass alarmClass = new AlarmClass();
+
+                            if(original.Frequency!=0)
+                            {
+
+                                long alarm_time;
+
+                                if(LocalTime.now().isAfter(original.Alarm_time))
+                                {
+                                    alarm_time = AlarmClass.MakeAlarmLong(getContext(),original.Alarm_time,original.Frequency);
+                                }
+                                else
+                                {
+                                    alarm_time = AlarmClass.MakeAlarmLong(getContext(),original.Alarm_time,0);
+                                }
+
+                                Intent intent = alarmClass.MakeIntent(getContext(), original.Name,alarm_time, AddHabit.Icon,original.Frequency, 0);
+                                alarmClass.cancelAlarm(getContext(),intent);
+                            }
+                            else
+                            {
+                                long alarm_time;
+                                int today = LocalDate.now().getDayOfWeek().getValue()-1;
+                                int weeks = 1111111;
+
+                                int helper=0;
+
+                                for(int i=1000000;i>0;i/=10)
+                                {
+
+                                    if(!original.frequencyDay[helper]) {
+                                        weeks -=i;
+                                    }
+                                    helper++;
+                                }
+
+                                if(LocalTime.now().isAfter(original.Alarm_time))
+                                {
+                                    int next = today+1;
+
+                                    for(int i=next;i<next+7;)
+                                    {
+                                        int tmp = (i+7)%7;
+                                        if(original.frequencyDay[tmp])
+                                        {
+                                            next=i;
+                                            break;
+
+                                        }
+
+                                        i++;
+                                    }
+                                    next = (next-today+7)%7;
+                                    alarm_time = AlarmClass.MakeAlarmLong(getContext(),original.Alarm_time,next);
+
+                                }
+                                else
+                                {
+
+                                    int next = today;
+
+                                    for(int i=next;i<next+7;)
+                                    {
+                                        int tmp = (i+7)%7;
+                                        if(original.frequencyDay[tmp])
+                                        {
+                                            next=i;
+                                            break;
+
+                                        }
+
+                                        i++;
+                                    }
+                                    next = (next-today+7)%7;
+                                    alarm_time = AlarmClass.MakeAlarmLong(getContext(),original.Alarm_time,next);
+                                }
+
+                                Intent intent = alarmClass.MakeIntent(getContext(), original.Name,alarm_time,AddHabit.Icon, -1 , weeks);
+
+                                alarmClass.cancelAlarm(getContext(),intent);
+                            }
+
+
+
+
+                    }
+
+
+                    if(AddHabit.alarm)
+                    {
+
+                        AlarmClass alarmClass = new AlarmClass();
+
+                        if(AddHabit.Frequency!=0)
+                        {
+
+                            long alarm_time;
+
+                            if(LocalTime.now().isAfter(AddHabit.Alarm_time))
+                            {
+                                alarm_time = AlarmClass.MakeAlarmLong(getContext(),AddHabit.Alarm_time,AddHabit.Frequency);
+                            }
+                            else
+                            {
+                                alarm_time = AlarmClass.MakeAlarmLong(getContext(),AddHabit.Alarm_time,0);
+                            }
+
+                            Intent intent = alarmClass.MakeIntent(getContext(), AddHabit.Name,alarm_time,AddHabit.Icon, AddHabit.Frequency, 0);
+                            alarmClass.startAlarm(getContext(),intent);
+                        }
+                        else
+                        {
+                            long alarm_time;
+                            int today = LocalDate.now().getDayOfWeek().getValue()-1;
+                            int weeks = 1111111;
+
+                            int helper=0;
+
+                            for(int i=1000000;i>0;i/=10)
+                            {
+
+                                if(!AddHabit.frequencyDay[helper]) {
+                                    weeks -=i;
+                                }
+                                helper++;
+                            }
+
+                            if(LocalTime.now().isAfter(AddHabit.Alarm_time))
+                            {
+                                int next = today+1;
+
+                                for(int i=next;i<next+7;)
+                                {
+                                    int tmp = (i+7)%7;
+                                    if(AddHabit.frequencyDay[tmp])
+                                    {
+                                        next=i;
+                                        break;
+
+                                    }
+
+                                    i++;
+                                }
+                                next = (next-today+7)%7;
+                                alarm_time = AlarmClass.MakeAlarmLong(getContext(),AddHabit.Alarm_time,next);
+
+                            }
+                            else
+                            {
+
+                                int next = today;
+
+                                for(int i=next;i<next+7;)
+                                {
+                                    int tmp = (i+7)%7;
+                                    if(AddHabit.frequencyDay[tmp])
+                                    {
+                                        next=i;
+                                        break;
+
+                                    }
+
+                                    i++;
+                                }
+                                next = (next-today+7)%7;
+                                alarm_time = AlarmClass.MakeAlarmLong(getContext(),AddHabit.Alarm_time,next);
+                            }
+
+                            Intent intent = alarmClass.MakeIntent(getContext(), AddHabit.Name,alarm_time, AddHabit.Icon,-1 , weeks);
+                            alarmClass.startAlarm(getContext(),intent);
+                        }
+
+
+                    }
+
+                    synchronizedHabitList.set(idx,AddHabit);
+
+                }
             }
+
+            
+
+
 
             activity.DataChangeNotfiy();
 

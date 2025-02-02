@@ -779,7 +779,7 @@ public class HabitFragment extends Fragment {
 
                 if(de.CheckedFeeling[LocalDate.now().getYear()-2024][LocalDate.now().getMonthValue()][LocalDate.now().getDayOfMonth()]!=0)
                 {
-                    imageView.setImageAlpha(128);
+                    imageView.setImageAlpha(80);
                 }
             }
 
@@ -820,7 +820,7 @@ public class HabitFragment extends Fragment {
                 imageView.setImageResource(de.Icon);
                 if(de.CheckedFeeling[LocalDate.now().getYear()-2024][LocalDate.now().getMonthValue()][LocalDate.now().getDayOfMonth()]!=0)
                 {
-                    imageView.setImageAlpha(128);
+                    imageView.setImageAlpha(80);
                 }
             }
             days.setText(de.AchieveDay+" 일");
@@ -860,7 +860,7 @@ public class HabitFragment extends Fragment {
 
                 if(de.CheckedFeeling[LocalDate.now().getYear()-2024][LocalDate.now().getMonthValue()][LocalDate.now().getDayOfMonth()]!=0)
                 {
-                    imageView.setImageAlpha(128);
+                    imageView.setImageAlpha(80);
                 }
             }
             days.setText(de.AchieveDay+" 일");
@@ -900,7 +900,7 @@ public class HabitFragment extends Fragment {
 
                 if(de.CheckedFeeling[LocalDate.now().getYear()-2024][LocalDate.now().getMonthValue()][LocalDate.now().getDayOfMonth()]!=0)
                 {
-                    imageView.setImageAlpha(128);
+                    imageView.setImageAlpha(80);
                 }
             }
             days.setText(de.AchieveDay+" 일");

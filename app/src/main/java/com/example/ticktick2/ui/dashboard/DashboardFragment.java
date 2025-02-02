@@ -852,7 +852,7 @@ public class DashboardFragment extends Fragment {
 
                 if(de.CheckedFeeling[LocalDate.now().getYear()-2024][LocalDate.now().getMonthValue()][LocalDate.now().getDayOfMonth()]!=0)
                 {
-                    imageView.setImageAlpha(128);
+                    imageView.setImageAlpha(80);
                 }
             }
 

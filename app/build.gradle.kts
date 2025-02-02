@@ -10,8 +10,8 @@ android {
         applicationId = "com.example.ticktick2"
         minSdk = 34
         targetSdk = 34
-        versionCode = 6
-        versionName = "4.2"
+        versionCode = 7
+        versionName = "5.0"
 
         // 1 -> 1
         // 2 -> 2
@@ -19,6 +19,7 @@ android {
         // 4 -> 4
         // 5 -> 4.1
         // 6 -> 4.2
+        // 7 -> 5.0
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
