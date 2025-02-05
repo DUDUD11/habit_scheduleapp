@@ -93,6 +93,8 @@ public class AlarmClass extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
 
         if (Intent.ACTION_BOOT_COMPLETED.equals(intent.getAction())) {
+            
+            
 
             List<Alarm> alarmList = AlarmBootClass.loadAlarmList(context);
             for(Alarm a : alarmList)
@@ -118,6 +120,9 @@ public class AlarmClass extends BroadcastReceiver {
         }
 
         else {
+
+
+            
             showNotification(context, intent);
             setNextAlarm(context, intent);
         }
@@ -132,7 +137,8 @@ public class AlarmClass extends BroadcastReceiver {
         LocalDateTime dateTime = date.atTime(time);
         LocalDateTime alarmDateTime = dateTime.plusDays(AlarmDate);
 
-        Long x = alarmDateTime.toInstant(ZoneOffset.UTC).toEpochMilli()-LocalDateTime.now().toInstant(ZoneOffset.UTC).toEpochMilli();
+       // Long x = alarmDateTime.toInstant(ZoneOffset.UTC).toEpochMilli()-LocalDateTime.now().toInstant(ZoneOffset.UTC).toEpochMilli();
+       // x/=1000;
 
 
         // LocalDateTime을 밀리초로 변환
@@ -227,6 +233,13 @@ public class AlarmClass extends BroadcastReceiver {
 
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, getIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
+        if(pendingIntent==null)
+        {
+            Toast.makeText(context, "생성이 잘안되네요" ,
+                    Toast.LENGTH_SHORT).show();
+            
+        }
+        
         if (alarmManager != null) {
 
 
@@ -317,6 +330,7 @@ public class AlarmClass extends BroadcastReceiver {
         else
         {
             int today = LocalDate.now().getDayOfWeek().getValue()-1;
+            LocalDateTime now = LocalDateTime.now();
             boolean[] dates = new boolean[7];
             int tmp = weekends;
             int next=-1;
@@ -363,6 +377,15 @@ public class AlarmClass extends BroadcastReceiver {
             next = (next-today+7)%7;
 
             alarmTime+= (long)(86400*1000*next);
+
+
+
+            //while(now.toInstant(ZoneOffset.UTC).toEpochMilli()>=alarmTime+86400*1000*7)
+            //{
+            //    alarmTime+=alarmTime+86400*1000*7;
+            //}
+
+
             intent.putExtra("weekends",weekends);
         }
 
@@ -374,7 +397,6 @@ public class AlarmClass extends BroadcastReceiver {
 
         // 다음 알람 설정
         if (alarmManager != null) {
-
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
                 alarmManager.setExactAndAllowWhileIdle(

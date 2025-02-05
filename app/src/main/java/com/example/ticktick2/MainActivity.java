@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
 
     public List<diary> synchronizedDiaryList = Collections.synchronizedList(new ArrayList<>());
 
-
+    private PermissionUtil permissionUtil;
 /*
 synchronizedList.add("Apple");
 synchronizedList.remove("Banana");
@@ -74,7 +74,16 @@ synchronized (synchronizedList) {
         setContentView(binding.getRoot());
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
+        {
+            permissionUtil = new PermissionUtil(this, this);
 
+            if(!permissionUtil.checkPermission())
+            {
+                permissionUtil.requestPermission();
+
+            }
+
+        }
         {
             fileIOClass = new FileIOClass(this);
             fileIODiaryClass = new FileIO_DiaryClass(this);
