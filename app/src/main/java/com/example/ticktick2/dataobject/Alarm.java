@@ -1,5 +1,7 @@
 package com.example.ticktick2.dataobject;
 
+import java.time.LocalDate;
+
 public class Alarm {
 
     private String alarmName;  // 알람 이름
@@ -8,13 +10,16 @@ public class Alarm {
     private int frequency;
     private int weekends;      // 주말 설정 (이진 비트 필드로, 예: 1111111이면 매일 알람, 0100000이면 토요일만 알람)
 
+    private long lastalarm = -1;
+
     // 생성자
-    public Alarm(String alarmName, long alarmTime, int drawId, int frequency, int weekends) {
+    public Alarm(String alarmName, long alarmTime, int drawId, int frequency, int weekends, long lastalarm) {
         this.alarmName = alarmName;
         this.alarmTime = alarmTime;
         this.drawId = drawId;
         this.frequency = frequency;
         this.weekends = weekends;
+        this.lastalarm  = lastalarm;
     }
 
     // Getter and Setter Methods
@@ -26,12 +31,22 @@ public class Alarm {
         this.alarmName = alarmName;
     }
 
+
+
     public long getAlarmTime() {
         return alarmTime;
     }
 
     public void setAlarmTime(long alarmTime) {
         this.alarmTime = alarmTime;
+    }
+
+    public long getLastalarm() {
+        return this.lastalarm;
+    }
+
+    public void setLastAlarm(long lastalarm) {
+        this.lastalarm = lastalarm;
     }
 
     public int getDrawId() {
@@ -67,6 +82,7 @@ public class Alarm {
                 ", drawId=" + drawId +
                 ", frequency=" + frequency +
                 ", weekends=" + weekends +
+                ", lastalarm=" + lastalarm +
                 '}';
     }
 }

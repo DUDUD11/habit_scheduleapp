@@ -673,8 +673,18 @@ public class HabitAddPageTwo extends Fragment {
                             alarm_time = AlarmClass.MakeAlarmLong(getContext(),AddHabit.Alarm_time,0);
                         }
 
-                        Intent intent = alarmClass.MakeIntent(getContext(), AddHabit.Name,alarm_time, AddHabit.Icon,AddHabit.Frequency, 0);
-                        alarmClass.startAlarmAndAddAlarm(getContext(),intent);
+                        if(AddHabit.EndDate==null)
+                        {
+                            Intent intent = alarmClass.MakeIntent(getContext(), AddHabit.Name, alarm_time, AddHabit.Icon, AddHabit.Frequency, 0, -1);
+                            alarmClass.startAlarmAndAddAlarm(getContext(),intent);
+                        }
+                        else
+                        {
+                            Intent intent = alarmClass.MakeIntent(getContext(), AddHabit.Name, alarm_time, AddHabit.Icon, AddHabit.Frequency, 0, AlarmClass.MakeLastAlarm(getContext(),AddHabit.EndDate));
+                            alarmClass.startAlarmAndAddAlarm(getContext(),intent);
+                        }
+
+
                     }
                     else
                     {
@@ -736,8 +746,20 @@ public class HabitAddPageTwo extends Fragment {
                             alarm_time = AlarmClass.MakeAlarmLong(getContext(),AddHabit.Alarm_time,next);
                         }
 
-                        Intent intent = alarmClass.MakeIntent(getContext(), AddHabit.Name,alarm_time,AddHabit.Icon, -1 , weeks);
-                        alarmClass.startAlarmAndAddAlarm(getContext(),intent);
+
+                        if(AddHabit.EndDate==null)
+                        {
+                            Intent intent = alarmClass.MakeIntent(getContext(), AddHabit.Name,alarm_time,AddHabit.Icon, -1 , weeks, -1);
+                            alarmClass.startAlarmAndAddAlarm(getContext(),intent);
+                        }
+                        else
+                        {
+                            Intent intent = alarmClass.MakeIntent(getContext(), AddHabit.Name,alarm_time,AddHabit.Icon, -1 , weeks, AlarmClass.MakeLastAlarm(getContext(),AddHabit.EndDate));
+                            alarmClass.startAlarmAndAddAlarm(getContext(),intent);
+                        }
+
+
+
                     }
 
 
@@ -779,8 +801,18 @@ public class HabitAddPageTwo extends Fragment {
                                     alarm_time = AlarmClass.MakeAlarmLong(getContext(),original.Alarm_time,0);
                                 }
 
-                                Intent intent = alarmClass.MakeIntent(getContext(), original.Name,alarm_time, AddHabit.Icon,original.Frequency, 0);
-                                alarmClass.cancelAlarmAndRemoveAlarm(getContext(),intent);
+                                if(AddHabit.EndDate==null)
+                                {
+                                    Intent intent = alarmClass.MakeIntent(getContext(), original.Name,alarm_time, AddHabit.Icon,original.Frequency, 0, -1);
+                                    alarmClass.cancelAlarmAndRemoveAlarm(getContext(),intent);
+                                }
+                                else
+                                {
+                                    Intent intent = alarmClass.MakeIntent(getContext(), original.Name,alarm_time, AddHabit.Icon,original.Frequency, 0, AlarmClass.MakeLastAlarm(getContext(),AddHabit.EndDate));
+                                    alarmClass.cancelAlarmAndRemoveAlarm(getContext(),intent);
+                                }
+
+
                             }
                             else
                             {
@@ -839,10 +871,17 @@ public class HabitAddPageTwo extends Fragment {
                                     next = (next-today+7)%7;
                                     alarm_time = AlarmClass.MakeAlarmLong(getContext(),original.Alarm_time,next);
                                 }
+                                if(AddHabit.EndDate==null)
+                                {
+                                    Intent intent = alarmClass.MakeIntent(getContext(), original.Name,alarm_time,AddHabit.Icon, -1 , weeks, -1);
+                                    alarmClass.cancelAlarmAndRemoveAlarm(getContext(),intent);
+                                }
+                                else
+                                {
+                                    Intent intent = alarmClass.MakeIntent(getContext(), original.Name,alarm_time,AddHabit.Icon, -1 , weeks, AlarmClass.MakeLastAlarm(getContext(),AddHabit.EndDate));
+                                    alarmClass.cancelAlarmAndRemoveAlarm(getContext(),intent);
+                                }
 
-                                Intent intent = alarmClass.MakeIntent(getContext(), original.Name,alarm_time,AddHabit.Icon, -1 , weeks);
-
-                                alarmClass.cancelAlarmAndRemoveAlarm(getContext(),intent);
                             }
 
 
@@ -870,8 +909,19 @@ public class HabitAddPageTwo extends Fragment {
                                 alarm_time = AlarmClass.MakeAlarmLong(getContext(),AddHabit.Alarm_time,0);
                             }
 
-                            Intent intent = alarmClass.MakeIntent(getContext(), AddHabit.Name,alarm_time,AddHabit.Icon, AddHabit.Frequency, 0);
-                            alarmClass.startAlarmAndAddAlarm(getContext(),intent);
+                            if(AddHabit.EndDate==null)
+                            {
+                                Intent intent = alarmClass.MakeIntent(getContext(), AddHabit.Name,alarm_time,AddHabit.Icon, AddHabit.Frequency, 0, -1);
+                                alarmClass.startAlarmAndAddAlarm(getContext(),intent);
+                            }
+                            else
+                            {
+                                Intent intent = alarmClass.MakeIntent(getContext(), AddHabit.Name,alarm_time,AddHabit.Icon, AddHabit.Frequency, 0, AlarmClass.MakeLastAlarm(getContext(),AddHabit.EndDate));
+                                alarmClass.startAlarmAndAddAlarm(getContext(),intent);
+                            }
+
+
+
                         }
                         else
                         {
@@ -931,8 +981,18 @@ public class HabitAddPageTwo extends Fragment {
                                 alarm_time = AlarmClass.MakeAlarmLong(getContext(),AddHabit.Alarm_time,next);
                             }
 
-                            Intent intent = alarmClass.MakeIntent(getContext(), AddHabit.Name,alarm_time, AddHabit.Icon,-1 , weeks);
-                            alarmClass.startAlarmAndAddAlarm(getContext(),intent);
+                            if(AddHabit.EndDate==null)
+                            {
+                                Intent intent = alarmClass.MakeIntent(getContext(), AddHabit.Name,alarm_time, AddHabit.Icon,-1 , weeks, -1);
+                                alarmClass.startAlarmAndAddAlarm(getContext(),intent);
+                            }
+                            else
+                            {
+                                Intent intent = alarmClass.MakeIntent(getContext(), AddHabit.Name,alarm_time, AddHabit.Icon,-1 , weeks, AlarmClass.MakeLastAlarm(getContext(),AddHabit.EndDate));
+                                alarmClass.startAlarmAndAddAlarm(getContext(),intent);
+                            }
+
+
                         }
 
 
@@ -943,22 +1003,30 @@ public class HabitAddPageTwo extends Fragment {
                 }
             }
 
-            
-
-
-
             activity.DataChangeNotfiy();
 
             BottomNavigationView navView = requireActivity().findViewById(R.id.nav_view);
 
             navView.setVisibility(View.VISIBLE);
 
-            habitViewModel.resetNewHabit();
 
-            navController.navigate(R.id.navigation_habits, null,
-                    new NavOptions.Builder()
-                            .setPopUpTo(R.id.navigation_habits, true) // 스택에서 A를 남기고 모두 제거
-                            .build());
+
+            if(!habitViewModel.editinghabit) {
+                navController.navigate(R.id.navigation_habits, null,
+                        new NavOptions.Builder()
+                                .setPopUpTo(R.id.navigation_habits, true) // 스택에서 A를 남기고 모두 제거
+                                .build());
+            }
+            else
+            {
+                navController.popBackStack();
+
+
+                navController.popBackStack();
+
+            }
+
+            habitViewModel.resetNewHabit();
 
         });
 

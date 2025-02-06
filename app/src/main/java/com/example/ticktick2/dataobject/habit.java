@@ -23,7 +23,7 @@ public class habit {
 
     public Group group;
     public LocalDate StartDate;
-    public LocalDate EndDate;
+    public LocalDate EndDate = null;
     public LocalTime Alarm_time;
     public boolean HabitLog;
     public int AchieveDay;

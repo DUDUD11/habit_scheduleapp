@@ -81,16 +81,25 @@ public class AlarmClass extends BroadcastReceiver {
     private Alarm Intent_to_Alarm(Intent intent)
     {
         Long alarmTime = intent.getLongExtra("alarmTime",-1);
+        Long lastalarm = intent.getLongExtra("lastalarm",-1);
         String alarmName = intent.getStringExtra("alarmName");
         int Frequency = intent.getIntExtra("Frequency",-1);
         int weekends = intent.getIntExtra("weekends",-1);
         int Icon = intent.getIntExtra("Icon",-1);
-        return new Alarm(alarmName,alarmTime,Icon,Frequency,weekends);
+        return new Alarm(alarmName,alarmTime,Icon,Frequency,weekends,lastalarm);
     }
 
 
     @Override
     public void onReceive(Context context, Intent intent) {
+
+        long lastalarm =  intent.getLongExtra("lastalarm",-1);
+
+
+        if(lastalarm != -1 && LocalDateTime.now().toInstant(ZoneOffset.UTC).toEpochMilli() > lastalarm)
+        {
+            return;
+        }
 
         if (Intent.ACTION_BOOT_COMPLETED.equals(intent.getAction())) {
             
@@ -99,7 +108,7 @@ public class AlarmClass extends BroadcastReceiver {
             List<Alarm> alarmList = AlarmBootClass.loadAlarmList(context);
             for(Alarm a : alarmList)
             {
-                Intent tmp_intent = MakeIntent(context,a.getAlarmName(),a.getAlarmTime(),a.getDrawId(),a.getFrequency(),a.getWeekends());
+                Intent tmp_intent = MakeIntent(context,a.getAlarmName(),a.getAlarmTime(),a.getDrawId(),a.getFrequency(),a.getWeekends(),a.getLastalarm());
 
                 if(alreadypass(a.getAlarmTime()))
                 {
@@ -130,9 +139,6 @@ public class AlarmClass extends BroadcastReceiver {
 
     public static long MakeAlarmLong(Context context, LocalTime time,int AlarmDate)
     {
-
-
-
         LocalDate date = LocalDate.now();
         LocalDateTime dateTime = date.atTime(time);
         LocalDateTime alarmDateTime = dateTime.plusDays(AlarmDate);
@@ -145,14 +151,29 @@ public class AlarmClass extends BroadcastReceiver {
         return alarmDateTime.toInstant(ZoneOffset.UTC).toEpochMilli();
     }
 
+    public static long MakeLastAlarm(Context context, LocalDate date)
+    {
+        LocalTime time = LocalTime.of(0,0);
+        LocalDateTime dateTime = date.atTime(time);
+        LocalDateTime alarmDateTime = dateTime.plusDays(1);
+
+        // Long x = alarmDateTime.toInstant(ZoneOffset.UTC).toEpochMilli()-LocalDateTime.now().toInstant(ZoneOffset.UTC).toEpochMilli();
+        // x/=1000;
 
 
-    public Intent MakeIntent(Context context, String alarmName, Long alarmTime, int drawId, int Frequency,int weekends)
+        // LocalDateTime을 밀리초로 변환
+        return alarmDateTime.toInstant(ZoneOffset.UTC).toEpochMilli();
+    }
+
+
+
+
+    public Intent MakeIntent(Context context, String alarmName, Long alarmTime, int drawId, int Frequency,int weekends, long lastalarm)
     {
 
 
         Intent intent = new Intent(context, AlarmClass.class);
-
+        intent.putExtra("lastalarm",lastalarm);
         intent.putExtra("alarmTime",alarmTime);
         intent.putExtra("alarmName",alarmName);
         intent.putExtra("Icon",drawId);
@@ -185,6 +206,7 @@ public class AlarmClass extends BroadcastReceiver {
         intent.putExtra("alarmTime",alarm.getAlarmTime());
         intent.putExtra("alarmName",alarm.getAlarmName());
         intent.putExtra("Icon",alarm.getDrawId());
+        intent.putExtra("lastalarm",alarm.getLastalarm());
 
         if(alarm.getFrequency()==-1)
         {
@@ -202,12 +224,13 @@ public class AlarmClass extends BroadcastReceiver {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, GetIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
         Long alarmTime = GetIntent.getLongExtra("alarmTime",-1);
+        Long lastalarm = GetIntent.getLongExtra("lastalarm",-1);
         String alarmName = GetIntent.getStringExtra("alarmName");
         int Frequency = GetIntent.getIntExtra("Frequency",-1);
         int weekends = GetIntent.getIntExtra("weekends",-1);
         int Icon = GetIntent.getIntExtra("Icon",-1);
 
-        Alarm removeAlarm = new Alarm(alarmName,alarmTime,Icon,Frequency,weekends);
+        Alarm removeAlarm = new Alarm(alarmName,alarmTime,Icon,Frequency,weekends,lastalarm);
         AlarmBootClass.removeAlarm(context,removeAlarm);
 
         // 알람 취소
@@ -223,12 +246,13 @@ public class AlarmClass extends BroadcastReceiver {
     {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Long alarmTime = getIntent.getLongExtra("alarmTime",-1);
+        Long lastalarm = getIntent.getLongExtra("lastalarm",-1);
         String alarmName = getIntent.getStringExtra("alarmName");
         int Frequency = getIntent.getIntExtra("Frequency",-1);
         int weekends = getIntent.getIntExtra("weekends",-1);
         int Icon = getIntent.getIntExtra("Icon",-1);
 
-        Alarm newalarm = new Alarm(alarmName,alarmTime,Icon,Frequency,weekends);
+        Alarm newalarm = new Alarm(alarmName,alarmTime,Icon,Frequency,weekends,lastalarm);
         AlarmBootClass.addAlarm(context,newalarm);
 
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, getIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
@@ -299,6 +323,7 @@ public class AlarmClass extends BroadcastReceiver {
 
         String alarmName = getIntent.getStringExtra("alarmName");
         Long alarmTime = getIntent.getLongExtra("alarmTime",-1);
+        Long lastalarm = getIntent.getLongExtra("lastalarm",-1);
         int Frequency = getIntent.getIntExtra("Frequency",-1);
         int weekends = getIntent.getIntExtra("weekends",-1);
         int Icon = getIntent.getIntExtra("Icon",-1);
@@ -392,6 +417,7 @@ public class AlarmClass extends BroadcastReceiver {
         intent.putExtra("alarmTime",alarmTime);
         intent.putExtra("alarmName",alarmName);
         intent.putExtra("Icon",Icon);
+        intent.putExtra("lastalarm",lastalarm);
 
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 

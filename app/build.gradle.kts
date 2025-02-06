@@ -10,8 +10,8 @@ android {
         applicationId = "com.example.ticktick2"
         minSdk = 34
         targetSdk = 34
-        versionCode = 10
-        versionName = "5.3"
+        versionCode = 11
+        versionName = "5.4"
 
         // 1 -> 1
         // 2 -> 2
